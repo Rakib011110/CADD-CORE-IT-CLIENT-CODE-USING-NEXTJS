@@ -1,5 +1,6 @@
 "use client"
 
+import ClientReviews from "@/components/Home/ClientReviews/ClientReviews";
 import OurCourses from "@/components/Home/OurCourses/OurCourses";
 import OurServices from "@/components/Home/OurServices/OurServices";
 import SeminarSchedule from "@/components/Home/SeminarSchedule/SeminarSchedule";
@@ -33,6 +34,10 @@ export default function homeLayoutPage() {
 
       <div>
         <OurServices/>
+      </div> 
+
+      <div>
+        <ClientReviews/>
       </div>
     </div>
   );
