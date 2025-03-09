@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "title": "আরসিসি বিল্ডিং স্ট্রাকচারাল কোর্স",
+      "desc": "আর্কিটেকচার, ডিজাইন, এবং ডিটেইলিং সম্পর্কে বিস্তারিত",
+      "image": "https://caddcore.net/wp-content/uploads/2023/02/3d-printing.jpg"
+    },
+    {
+      "id": 2,
+      "title": "ঝুঁকিপূর্ণ বিল্ডিং মডেলিং ইউটিলিটি",
+      "desc": "মডেলিং এবং বিশ্লেষণের মাধ্যমে কাঠামোর সুরক্ষা নিশ্চিত",
+      "image": "https://caddcore.net/wp-content/uploads/2023/03/AdobeStock_5864164341_crop.webp"
+    },
+    {
+      "id": 3,
+      "title": "ঝুঁকিপূর্ণ মেকানিক্যাল ক্যাড মাস্টারকোর্স",
+      "desc": "উন্নত যন্ত্রাংশ ডিজাইন, সমাবেশ, এবং বিশ্লেষণ শিখুন",
+      "image": "https://caddcore.net/wp-content/uploads/2023/02/3d-printing.jpg"
+    },
+    {
+      "id": 4,
+      "title": "ইলেক্ট্রিক্যাল ক্যাড স্পেশালিস্ট",
+      "desc": "সার্কিট ডিজাইন, পাওয়ার সিস্টেম, এবং ওয়্যারিং লেআউট",
+      "image": "https://caddcore.net/wp-content/uploads/2023/02/3d-printing.jpg"
+    },
+    {
+      "id": 5,
+      "title": "প্লাম্বিং ও পাইপলাইন সলিউশন কোর্স",
+      "desc": "সিস্টেম ডিজাইন ও অপ্টিমাইজেশনে বিশেষজ্ঞ হন",
+      "image": "https://caddcore.net/wp-content/uploads/2023/02/3d-printing.jpg"
+    }
+
+]
