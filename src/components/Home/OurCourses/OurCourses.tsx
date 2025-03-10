@@ -59,7 +59,9 @@ export default function OurCourses() {
 
       <Carousel opts={{ align: "center" }} className="w-full max-w-6xl mx-auto">
         <CarouselContent>
-          {coursesData.map((course) => (
+          {coursesData.map((course) => ( 
+
+            
             <CarouselItem
               key={course.id}
               className="md:basis-1/2 lg:basis-1/3 p-4"
@@ -88,12 +90,12 @@ export default function OurCourses() {
           ))}
         </CarouselContent>
 
-        {/* Carousel Navigation Buttons */}
+      
         <CarouselPrevious className="bg-red-600 text-white" />
         <CarouselNext  className="bg-red-600 text-white"/>
       </Carousel>
 
-      {/* "All Courses" Button */}
+  
       <div className="text-center mt-6">
         <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-semibold">
           সকল কোর্স
