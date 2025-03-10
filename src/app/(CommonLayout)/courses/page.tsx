@@ -11,7 +11,7 @@ export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryWithAll>("All");
 
   // Our array of categories (including 'All')
-  const categories: CategoryWithAll[] = ["All", "Civil", "Architectural", "Mechanical", "Electrical", "SIM"];
+  const categories: CategoryWithAll[] = ["All", "Civil", "Architectural", "Mechanical", "Electrical", "BIM"];
 
   // Filter logic
   const filteredCourses = selectedCategory === "All"
@@ -25,14 +25,14 @@ export default function Courses() {
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="max-w-6xl mx-auto">
           {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-3 mb-8">
+          <div className="flex flex-wrap gap-3 mb-8 items-center justify-center text-center">
             {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-colors
+                className={`px-5 py-2  rounded-md text-sm font-medium transition-colors
                   ${selectedCategory === category
-                    ? "bg-blue-600 text-white"
+                    ? "bg-red-600 text-white"
                     : "bg-white text-gray-600 border border-gray-200 hover:border-blue-200 hover:bg-blue-50"
                   }`}
               >

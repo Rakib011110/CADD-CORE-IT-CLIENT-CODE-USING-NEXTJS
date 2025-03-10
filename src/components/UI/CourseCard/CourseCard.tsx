@@ -1,34 +1,50 @@
 import { Course } from '@/lib/courses';
 import React from 'react';
+import { Card } from '../card';
+import { Book, Clock, Settings } from 'lucide-react';
 
-const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, details }) => {
+const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, details ,image}) => {
   return (
-    <div className="border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-      <h3 className="text-lg font-semibold mb-3 text-gray-800">{title}</h3>
-      
-      <div className="space-y-2 mb-4">
-        <p className="text-sm text-gray-600 flex justify-between">
-          <span>সময়:</span>
-          <span className="font-medium">{duration}</span>
-        </p>
-        <p className="text-sm text-gray-600 flex justify-between">
-          <span>লেসন:</span>
-          <span className="font-medium">{lessons}</span>
-        </p>
-        {projects && (
-          <p className="text-sm text-gray-600 flex justify-between">
-            <span>প্রজেক্ট:</span>
-            <span className="font-medium">{projects}</span>
-          </p>
-        )}
-      </div>
+    <Card className="relative h-[320px] rounded-lg overflow-hidden shadow-lg">
+               
+    <img
+      src={image}
+      alt={title}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
 
-      {details && (
-        <button className="w-full py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50 transition-colors">
-          বিস্তারিত
-        </button>
-      )}
+    {/* Full Gradient Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/75 to-transparent" />
+
+    {/* Centered Content */}
+    <div className="relative  z-20 flex flex-col items-center justify-end h-full text-center text-white px-4">
+      <h3 className="text-lg font-semibold">{title}</h3>
+
+      <div className="flex items-center justify-between gap-2">
+  
+  <div className="flex items-center   border-white ">
+    <Clock className="text-red-500 " />
+    <p className="text-md">{duration}</p>
+  </div>
+
+  <div className="flex items-center  border-l-4 border-white pl-1">
+    <Book className="text-red-500 " />
+    <p className="text-md">{lessons}</p>
+  </div>
+
+  <div className="flex items-center  border-l-4 border-white pl-1">
+    <Settings className="text-red-500 " />
+    <p className="text-md">{projects}</p>
+  </div>
+</div>
+
+
+
+      <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+        বিস্তারিত
+      </button>
     </div>
+  </Card>
   );
 };
 

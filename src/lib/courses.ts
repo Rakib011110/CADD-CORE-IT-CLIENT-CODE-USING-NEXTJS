@@ -1,4 +1,4 @@
-export type Category = 'Civil' | 'Architectural' | 'Mechanical' | 'Electrical' | 'SIM';
+export type Category = 'Civil' | 'Architectural' | 'Mechanical' | 'Electrical' | 'BIM';
 
 export interface Course {
   id: number;
@@ -8,6 +8,7 @@ export interface Course {
   projects: string;
   details?: boolean;
   category: Category;
+  image: string
 }
 
 export const courses: Course[] = [
@@ -19,6 +20,7 @@ export const courses: Course[] = [
     projects: '১০টি প্রজেক্ট',
     details: true,
     category: 'Civil',
+    image:"https://caddcore.net/wp-content/uploads/2023/02/reverse-engg.jpeg"
   },
   {
     id: 2,
@@ -27,6 +29,8 @@ export const courses: Course[] = [
     lessons: '৫০টি লেসন',
     projects: '১৫টি প্রজেক্ট',
     category: 'Civil',
+    image:"https://www.sthaponabd.com/images/service_images/ANALYTICAL-MODEL-FOR-ANALYSIS-and-DESIGN-OF-11-STORIED-RCC-STRUCTURE.jpg"
+
   },
   {
     id: 3,
@@ -35,7 +39,8 @@ export const courses: Course[] = [
     lessons: '৪০টি লেসন',
     projects: '১০টি প্রজেক্ট',
     details: true,
-    category: 'Architectural',
+    category: 'Architectural', 
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjKz978YDsIbfY7uCZ-ZZkk0oVnEXqZ1nqMA&s"
   },
   {
     id: 4,
@@ -44,6 +49,8 @@ export const courses: Course[] = [
     lessons: '২৫টি লেসন',
     projects: '',
     category: 'Mechanical',
+    image:"https://caddcore.net/wp-content/uploads/2023/03/Bridge-Analysis-and-Design-2.png"
+
   },
   {
     id: 5,
@@ -53,6 +60,8 @@ export const courses: Course[] = [
     projects: '১০টি প্রজেক্ট',
     details: true,
     category: 'Architectural',
+    image:"https://blog.sheraspace.com/wp-content/uploads/2021/01/Copy-of-Sheraspace-Blog_Image1.jpg"
+
   },
   {
     id: 6,
@@ -61,6 +70,8 @@ export const courses: Course[] = [
     lessons: '৩০টি লেসন',
     projects: '৫টি প্রজেক্ট',
     category: 'Electrical',
+    image:"https://caddcore.net/wp-content/uploads/2023/03/Structural-Analysis-Design-Mastercourse.png"
+
   },
   {
     id: 7,
@@ -68,6 +79,8 @@ export const courses: Course[] = [
     duration: '২মাস',
     lessons: '২০টি লেসন',
     projects: '',
-    category: 'SIM',
+    category: 'BIM',
+    image:"https://cdn11.bigcommerce.com/s-fz66rhptih/product_images/uploaded_images/interior-led-lighting-systems.jpg"
+
   },
 ];
