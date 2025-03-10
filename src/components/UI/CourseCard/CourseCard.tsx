@@ -13,7 +13,7 @@ const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, deta
       className="absolute inset-0 w-full h-full object-cover"
     />
 
-
+{/*  */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/75 to-transparent" />
 
 
