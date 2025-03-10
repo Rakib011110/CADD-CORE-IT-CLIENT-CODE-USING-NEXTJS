@@ -13,10 +13,10 @@ const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, deta
       className="absolute inset-0 w-full h-full object-cover"
     />
 
-    {/* Full Gradient Overlay */}
+
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/75 to-transparent" />
 
-    {/* Centered Content */}
+
     <div className="relative  z-20 flex flex-col items-center justify-end h-full text-center text-white px-4">
       <h3 className="text-lg font-semibold">{title}</h3>
 
