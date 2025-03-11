@@ -5,15 +5,14 @@ export default function Advisors() {
         members: [
           {
             name: "Hashnat Badsha",
-            title: "PhD in Civil (Environmental) Engineering",
-            location: "San Luis Obispo, California, United States",
+            title: "PhD in Civil (Environmental) Engineering, San Luis Obispo, California, United States",
+           
             photoUrl:
               "https://caddcore.net/wp-content/uploads/2023/04/Badsha-Sir.png",
           },
           {
             name: "K.M. Ariful Islam",
-            title: "Sr. Lead Structural Engineer",
-            location: "Bangladesh",
+            title: "Sr. Lead Structural Engineer, Bangladesh",
             photoUrl:
               "https://caddcore.net/wp-content/uploads/2023/04/K.M.Ariful-Islam.png",
           },
@@ -77,21 +76,8 @@ export default function Advisors() {
             title: "BIM Modeler",
             photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/WhatsApp-Image-2024-03-23-at-3.35.07-PM-Habib-Basar.jpeg",
           },
-          {
-            name: "Raisul Hasan Rasu",
-            title: "Structural Detailing Engineer",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/Glass_edited-Raisul-Hasan-Rasu.jpg",
-          },
-          {
-            name: "MD. AL BABUL LESAN",
-            title: "Structural Engineer",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/MD-AL-BABUL-LESAN-PHOTO-Al-Babul-Lesan.jpg",
-          },
-          {
-            name: "Kawsar Islam",
-            title: "Architectural Visualizer",
-            photoUrl: "https://via.placeholder.com/300",
-          },
+       
+         
         ],
       },
       {
@@ -100,65 +86,65 @@ export default function Advisors() {
           {
             name: "MD SHARIFUL ISLAM",
             title: "Mechanical Design Engr. & Trainer",
-            photoUrl: "https://via.placeholder.com/300",
+            photoUrl: "https://caddcore.net/wp-content/uploads/2024/10/MD-SHARIFUL-ISLAM-Md-Shariful-Islam.jpg",
           },
         ],
       },
       {
         category: "Electrical Engineering Team",
-        members: [
-          {
-            name: "Tanzim Faisal",
-            title: "Electrical Design Engineer",
-            photoUrl: "https://via.placeholder.com/300",
-          },
-          {
-            name: "Abdullah Al Noman",
-            title: "CAD Engineer (Electrical)",
-            photoUrl: "https://via.placeholder.com/300",
-          },
+        members: [ 
+        //   {
+        //     name: "Tanzim Faisal",
+        //     title: "Electrical Design Engineer",
+        //     photoUrl: "https://via.placeholder.com/300",
+        //   },
+        //   {
+        //     name: "Abdullah Al Noman",
+        //     title: "CAD Engineer (Electrical)",
+        //     photoUrl: "https://via.placeholder.com/300",
+        //   },
         ],
       },
       {
         category: "Creative & IT Team",
         members: [
-          {
-            name: "Nazim Rashed",
-            title: "Graphic Designer",
-            photoUrl: "https://via.placeholder.com/300",
-          },
+        //   {
+        //     name: "Nazim Rashed",
+        //     title: "Graphic Designer",
+        //     photoUrl: "https://via.placeholder.com/300",
+        //   },
         ],
       },
       {
         category: "Customer Service Team",
         members: [
-          {
-            name: "Mosammat Maksuda Akter",
-            title: "Sr. Executive (Marketing)",
-            photoUrl: "https://via.placeholder.com/300",
-          },
+        //   {
+        //     name: "Mosammat Maksuda Akter",
+        //     title: "Sr. Executive (Marketing)",
+        //     photoUrl: "https://via.placeholder.com/300",
+        //   },
           {
             name: "Wahida Alam",
             title: "Customer Service",
-            photoUrl: "https://via.placeholder.com/300",
+            photoUrl: "https://caddcore.net/wp-content/uploads/2023/03/Wahida-maam-1.png",
           },
         ],
       },
     ];
   
     return (
-      <section className="bg-[#e8f8f8] py-10 px-5">
-        <div className="max-w-6xl mx-auto  space-y-12">
+        <section className="bg-[#e8f8f8] py-10 px-5">
+        <div className="max-w-6xl mx-auto space-y-12">
           {teamMembers.map((group, groupIndex) => (
             <div key={groupIndex} className="relative">
-            
-              <div className="absolute top-0  left-0 bg-red-500 text-white px-3 py-1 rounded-bl-lg text-3xl z-10">
-              <h1 className="">  {group.category}</h1>
+              {/* Category Label - Positioned a little higher using negative top margin */}
+              <div className="absolute -top-6 left-0 bg-red-500 text-white px-3 py-1 rounded-bl-lg text-3xl z-10">
+                <h1>{group.category}</h1>
               </div>
   
               {/* Team Member Cards */}
               <div className="pt-8">
-                <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {group.members.map((member, memberIndex) => (
                     <div
                       key={memberIndex}
