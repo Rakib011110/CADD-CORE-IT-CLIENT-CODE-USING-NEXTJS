@@ -4,7 +4,13 @@ import CoursesBanner from "@/components/pages/@courses/CourseBanner";
 import CourseCard from "@/components/UI/CourseCard/CourseCard";
 import { Category, courses } from "@/lib/courses";
 
-// Extend the category type to include "All"
+
+
+// export const metadata = {
+//   title: "Courses - CADD CORE",
+//   description: "Explore our latest courses in Civil, Architectural, Mechanical, Electrical, and BIM fields at CADD CORE.",
+// };
+
 type CategoryWithAll = Category | "All";
 
 export default function Courses() {
