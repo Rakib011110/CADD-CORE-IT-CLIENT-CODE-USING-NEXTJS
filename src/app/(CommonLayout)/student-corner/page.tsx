@@ -1,7 +1,7 @@
-import StudentCornerBannar from "@/components/pages/StudentCorner/StudentCorner";
-import CertificateVerification from "@/components/StudentCornar/CertificateVerification/CertificateVerification";
-import PopularCourses from "@/components/StudentCornar/PopularCourses/PopularCourses";
-import SupportForms from "@/components/StudentCornar/SupportForms/SupportForms";
+import StudentCornerBannar from "@/components/pages/StudentCornar/StudentCornerBanner/StudentCorner";
+import CertificateVerification from "@/components/pages/StudentCornar/CertificateVerification/CertificateVerification";
+import PopularCourses from "@/components/pages/StudentCornar/PopularCourses/PopularCourses";
+import SupportForms from "@/components/pages/StudentCornar/SupportForms/SupportForms";
 
 export default function StudentCorner() {
   return (

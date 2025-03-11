@@ -1,3 +1,4 @@
+import Footer from "@/components/UI/Footer/Footer";
 import Navbar from "@/components/UI/Navbar/Navbar";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
@@ -7,7 +8,9 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <div className="">
 <Navbar/>
         <main>{children}</main>
-      </div>
+      </div> 
+
+      <Footer/>
     </div>
   );
 };
