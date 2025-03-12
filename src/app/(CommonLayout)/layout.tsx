@@ -1,18 +1,16 @@
 import Footer from "@/components/UI/Footer/Footer";
 import Navbar from "@/components/UI/Navbar/Navbar";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      
+      <main className="flex-1">{children}</main>
 
-      <div className="">
-<Navbar/>
-        <main>{children}</main>
-      </div> 
-
-      <Footer/>
+      <Footer />
     </div>
   );
 };
 
-export default layout;
+export default Layout;
