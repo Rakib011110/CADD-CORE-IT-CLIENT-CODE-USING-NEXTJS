@@ -1,5 +1,5 @@
 // components/CADDTeamSection.tsx
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 import Image from "next/image";
 
 const CADDTeamSection = () => {
