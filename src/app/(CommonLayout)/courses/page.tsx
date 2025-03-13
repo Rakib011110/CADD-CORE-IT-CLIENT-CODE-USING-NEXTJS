@@ -19,6 +19,8 @@ export default function Courses() {
   // Our array of categories (including 'All')
   const categories: CategoryWithAll[] = ["All", "Civil", "Architectural", "Mechanical", "Electrical", "BIM"];
 
+  // const { data: products, error, isLoading } = useGetAllProductsQuery();
+
   // Filter logic
   const filteredCourses = selectedCategory === "All"
     ? courses

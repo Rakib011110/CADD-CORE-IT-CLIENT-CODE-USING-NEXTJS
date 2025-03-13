@@ -2,8 +2,9 @@ import { Course } from '@/lib/courses';
 import React from 'react';
 import { Card } from '../card';
 import { Book, Clock, Settings } from 'lucide-react';
+import Link from 'next/link';
 
-const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, details ,image}) => {
+const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, details ,image ,id}) => {
   return (
     <Card className="relative h-[320px] rounded-lg overflow-hidden shadow-lg">
                
@@ -40,9 +41,12 @@ const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, deta
 
 
 
-      <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+     <Link href={`/courses/${id}`}>
+     
+     <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
         বিস্তারিত
       </button>
+     </Link>
     </div>
   </Card>
   );
