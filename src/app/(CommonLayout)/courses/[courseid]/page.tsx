@@ -19,18 +19,16 @@ export default function CourseDetails() {
 <div className="">
   <BatchSchedule/>
 </div>
-<div className="">
+<div id="mastercourse-overview" className="">
   <MastercourseOverview/>
 </div>
 
 
-<div className="">
+<div id="course-content" className="">
 <CourseContentList/>
 </div>
-<div className="h-24 w-full border-4 text-amber-50 bg-blue-500">
-<CourseContent/>
-</div>
-<div className="h-24 w-full border-4 text-amber-50 bg-red-500">
+
+<div className="">
 
   <SoftwareTaught/>
 </div>

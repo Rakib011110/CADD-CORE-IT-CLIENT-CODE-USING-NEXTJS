@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/UI/carousel";
+import Link from "next/link";
 
 type Course = {
   id: number;
@@ -49,7 +50,9 @@ const coursesData: Course[] = [
 
 export default function OurCourses() {
   return (
-    <div className="max-w-6xl mx-auto py-10">
+    <section data-aos="fade-up">
+
+<div className="max-w-6xl mx-auto py-10">
       <h2 className="text-3xl font-bold text-center mb-6">
         আমাদের জনপ্রিয় কোর্স সমূহ
       </h2>
@@ -81,9 +84,11 @@ export default function OurCourses() {
                 <div className="relative z-20 flex flex-col items-center justify-end h-full text-center text-white px-4">
                   <h3 className="text-lg font-semibold">{course.title}</h3>
                   <p className="text-sm mt-2">{course.desc}</p>
-                  <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                 <Link href={`/courses/${course.id}`}>
+                 <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
                     বিস্তারিত
                   </button>
+                 </Link>
                 </div>
               </Card>
             </CarouselItem>
@@ -102,5 +107,6 @@ export default function OurCourses() {
         </button>
       </div>
     </div>
+    </section>
   );
 }

@@ -19,7 +19,8 @@ export default function StatsSection() {
     ];
   
     return (
-      <div data-aos=""  className="flex justify-center items-center space-x-20 py-10">
+     <section className="data-aos=">
+       <div   className="flex justify-center items-center space-x-20 py-10">
         {stats.map((item, index) => (
           <div key={index} className="flex flex-col items-center text-center">
             <img src={item.icon} alt="icon" className="w-28 h-28 mb-2" />
@@ -27,6 +28,7 @@ export default function StatsSection() {
           </div>
         ))}
       </div>
+     </section>
     );
   }
   
