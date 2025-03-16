@@ -7,7 +7,7 @@ export default function Footer() {
             <h2 className="text-lg font-bold mb-4">যোগাযোগ</h2>
             <p className="text-gray-300">ঠিকানা</p>
             <p className="text-gray-400 text-sm">
-              ১৪৯/এ, বায়তুল নজর কমপ্লেক্স (২য় তলা), মুরারিচাঁদ রোড, ফকিরাপুল, ঢাকা-১০০০
+            ১৪৯/এ,বায়তুশ শরফ কমপ্লেক্স(২য় তলা), এয়ারপোর্ট রোড,ফার্মগেট, ঢাকা-১২১৫
             </p>
             <p className="mt-2 text-gray-300">মোবাইল</p>
             <p className="text-gray-400 text-sm">
