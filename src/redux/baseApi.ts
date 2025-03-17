@@ -9,14 +9,7 @@ const baseApi = createApi({
   }),
   tagTypes: [
     "User",
-    "Cart",
-    "follow",
-    "Shop",
-    "Order",
-    "Review",
-    "Products",
-    "VendorShop",
-    "Category",
+    "Event"
   ],
   endpoints: () => ({}),
 });

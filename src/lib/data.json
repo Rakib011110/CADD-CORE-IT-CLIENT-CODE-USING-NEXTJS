@@ -1,0 +1,122 @@
+{
+  "title": "প্রফেশনাল বিম মডেলিং ইউজিং রেভিট মাস্টারকোর্স",
+  "duration": "৪ মাস",
+  "lessons": 40,
+  "photoUrl": "https://example.com/course-photo.jpg",
+  "projects": 10,
+  "description": "",
+  "schedule": {
+    "startingDate": "2025-04-07T00:00:00.000Z",
+    "mode": "Online",
+    "days": ["Saturday", "Monday", "Wednesday"],
+    "time": "07:00 PM - 09:00 PM"
+  }, 
+  
+  
+  "overview": {
+    "totalClasses": 45,
+    "classDuration": "২ - ২.৫ ঘন্টা",
+    "interactiveSessions": true,
+    "assignments": true,
+    "digitalLabAccess": true
+  },
+  "courseIncludes": {
+    "duration": "৪ মাস",
+    "weeklyLiveClasses": 2,
+    "weeklyClassHours": 4
+  },
+  "topicsCovered": [
+    {
+      "topicTitle": "রেভিট বেসিক টু অ্যাডভান্স",
+      "topicDescription": "এই অংশে আপনি রেভিট সফটওয়্যার এর মৌলিক থেকে অ্যাডভান্সড লেভেলের কমান্ড ও টুলস ব্যবহারের বিস্তারিত শিখবেন। ছোট ছোট প্রজেক্টের মাধ্যমে হাতে-কলমে শেখানো হবে।"
+    },
+    {
+      "topicTitle": "রেসিডেন্সিয়াল অ্যাপার্টমেন্ট BIM মডেলিং প্রজেক্ট (According to BNBC)",
+      "topicDescription": "এই মডিউলে বাংলাদেশ ন্যাশনাল বিল্ডিং কোড (BNBC) অনুসারে একটি সম্পূর্ণ রেসিডেন্সিয়াল অ্যাপার্টমেন্টের BIM মডেল তৈরি করা হবে।"
+    },
+    {
+      "topicTitle": "স্ট্রাকচারাল ডিটেইলিং BIM মডেলিং প্রজেক্ট",
+      "topicDescription": "স্ট্রাকচারাল ডিটেইলিং সম্পর্কে বিস্তারিত আলোচনা করা হবে, যাতে আপনি একটি ভবনের ভিত্তি থেকে শুরু করে সম্পূর্ণ স্ট্রাকচারাল সিস্টেম ডিজাইন করতে পারেন।"
+    },
+    {
+      "topicTitle": "ইলেকট্রিক্যাল এন্ড প্লাম্বিং BIM মডেলিং প্রজেক্ট",
+      "topicDescription": "এই মডিউলে একটি ভবনের সম্পূর্ণ ইলেকট্রিক্যাল এবং প্লাম্বিং ডিজাইন ও মডেলিং শিখানো হবে।"
+    },
+    {
+      "topicTitle": "European/UK/Australian বিল্ডিং BIM মডেলিং প্রজেক্ট (According to IBC 2018)",
+      "topicDescription": "ইউরোপিয়ান, ইউকে এবং অস্ট্রেলিয়ান স্ট্যান্ডার্ড অনুসারে একটি বিল্ডিং ডিজাইন ও BIM মডেল তৈরি করা হবে।"
+    },
+    {
+      "topicTitle": "Container House BIM মডেলিং প্রজেক্ট (According to IBC 2018)",
+      "topicDescription": "কনটেইনার হাউস ডিজাইন সম্পর্কে বিস্তারিত শেখানো হবে, যা বর্তমানে অত্যন্ত জনপ্রিয় ডিজাইন পদ্ধতি।"
+    },
+    {
+      "topicTitle": "3D ফ্লোর প্লান প্রজেক্ট",
+      "topicDescription": "এই অংশে 3D ফ্লোর প্ল্যান তৈরির পদ্ধতি, বিভিন্ন স্টাইলের ফ্লোর প্ল্যান ডিজাইন শেখানো হবে।"
+    }
+  ],
+  "softwaresTaught": [
+    {
+      "softwareTitle": "Autodesk Revit",
+      "photoUrl": "https://example.com/revit-logo.png"
+    },
+    {
+      "softwareTitle": "Navisworks",
+      "photoUrl": "https://example.com/navisworks-logo.png"
+    },
+    {
+      "softwareTitle": "Dynamo",
+      "photoUrl": "https://example.com/dynamo-logo.png"
+    },
+    {
+      "softwareTitle": "Lumion",
+      "photoUrl": "https://example.com/lumion-logo.png"
+    },
+    {
+      "softwareTitle": "AutoCAD",
+      "photoUrl": "https://example.com/autocad-logo.png"
+    },
+    {
+      "softwareTitle": "SketchUp",
+      "photoUrl": "https://example.com/sketchup-logo.png"
+    }
+  ],
+  "expertPanel": {
+    "advisors": [
+      {
+        "name": "Hachnayen Ahmed",
+        "role": "Structural Engineer",
+        "company": "প্রফেশনাল সাপোর্ট ইঞ্জিনিয়ার্স",
+        "photoUrl": "https://example.com/hachnayen-ahmed.jpg"
+      },
+      {
+        "name": "Habib Basar",
+        "role": "BIM Modeler",
+        "photoUrl": "https://example.com/habib-basar.jpg"
+      }
+    ],
+    "teachers": [
+      {
+        "name": "Instructor 1",
+        "role": "Senior BIM Specialist",
+        "photoUrl": "https://example.com/instructor1.jpg"
+      },
+      {
+        "name": "Instructor 2",
+        "role": "Revit Expert",
+        "photoUrl": "https://example.com/instructor2.jpg"
+      }
+    ]
+  },
+  "courseFee": 25000,
+  "faqs": [
+    {
+      "question": "এই কোর্সের ফ্রি ট্রেনিং সেশন কি থাকবে?",
+      "answer": "হ্যাঁ, এই কোর্স রিলেটেড বিভিন্ন প্রয়োজনীয় ফ্রি ট্রেনিং সেশন থাকবে।"
+    },
+    {
+      "question": "কোর্সটি কি সম্পূর্ণ অনলাইন হবে?",
+      "answer": "হ্যাঁ, সম্পূর্ণ কোর্সটি অনলাইন প্ল্যাটফর্মে পরিচালিত হবে।"
+    }
+  ]
+}
