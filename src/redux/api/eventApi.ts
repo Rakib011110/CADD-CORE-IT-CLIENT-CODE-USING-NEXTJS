@@ -4,7 +4,7 @@ export const EventApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
       getAllEvents: builder.query({
         query: () => ({
-          url: "/event",
+          url: "/events",
           method: "GET",
         }),
         providesTags: ["Event"],

@@ -1,4 +1,5 @@
 "use client";
+import ManageEvents from "@/components/pages/ManageEvents/ManageEvents";
 import { Button } from "@/components/UI/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/UI/card";
 import { Input } from "@/components/UI/input";
@@ -19,23 +20,23 @@ export default function ManageEventsEngagements() {
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "CADDCOREWEB"); // Replace with your actual preset name
+    formData.append("upload_preset", "CADDCOREWEB"); 
 
     try {
         const response = await fetch(
-            "https://api.cloudinary.com/v1_1/dbkwiwoll/image/upload", // Replace with your Cloud Name
+            "https://api.cloudinary.com/v1_1/dbkwiwoll/image/upload", 
             {
                 method: "POST",
                 body: formData,
             }
         );
         
-        const data = await response.json();
+      const data = await response.json();
         if (response.ok) {
-            // Return the secure URL of the uploaded image
+           
             return data.secure_url; 
         } else {
-            // Display error message if upload fails
+           
             toast.error(`Image upload failed: ${data.error?.message}`);
             return null;
         }
@@ -65,14 +66,12 @@ export default function ManageEventsEngagements() {
           toast.error("Error generating image previews.");
         });
 
-      // Upload each file to Cloudinary
       const uploadedImages = await Promise.all(
         Array.from(files).map((file) => uploadToCloudinary(file))
       );
       const validImages = uploadedImages.filter((url) => url !== null) as string[];
       setEventsImages(validImages);
 
-      // Set the first uploaded image URL into eventData for submission
       if (validImages.length > 0) {
         setEventData((prev) => ({ ...prev, photoUrl: validImages[0] }));
       }
@@ -165,7 +164,9 @@ export default function ManageEventsEngagements() {
         <Toaster />
       </Card>
 
-      
+      <div className="mt-16">
+        <ManageEvents/>
+      </div>
     </div>
   );
 }
