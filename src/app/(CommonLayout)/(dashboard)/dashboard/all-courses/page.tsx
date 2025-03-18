@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { Button } from "@/components/UI/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/UI/card";
@@ -7,118 +6,130 @@ import { Input } from "@/components/UI/input";
 import { Label } from "@/components/UI/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/UI/select";
 import { Textarea } from "@/components/UI/textarea";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
+import { TCourse } from "@/lib/types/TCourses";
 
 export default function CourseForm() {
-  const [courseData, setCourseData] = useState({
+  const [formData, setFormData] = useState<TCourse>({
     title: "",
+    slug: "",
+    categories: "",
     duration: "",
     lessons: "",
     photoUrl: "",
     projects: "",
     description: "",
+    courseFee: "",
     schedule: {
       startingDate: "",
-      mode: "Online",
+      mode: "",
       days: "",
       time: ""
     },
     overview: {
-      totalClasses: "",
-      classDuration: "",
-      interactiveSessions: false,
-      assignments: false,
-      digitalLabAccess: false
+      overviewDescription: "",
+      videoUrl: ""
     },
     courseIncludes: {
       duration: "",
       weeklyLiveClasses: "",
       weeklyClassHours: ""
     },
-    topicsCovered: [
-      { topicTitle: "", topicDescription: "" }
-    ],
-    softwaresTaught: [
-      { softwareTitle: "", photoUrl: "" }
-    ],
+    topicsCovered: [{ topicTitle: "", topicDescription: "" }],
+    softwaresTaught: [{ softwareTitle: "", photoUrl: "" }],
     expertPanel: {
-      advisors: [
-        { name: "", role: "", company: "", photoUrl: "" }
-      ],
-      teachers: [
-        { name: "", role: "", photoUrl: "" }
-      ]
+      advisors: [{ name: "", title: "", photoUrl: "" }],
+      teachers: [{ name: "", role: "", photoUrl: "" }]
     },
-    courseFee: "",
-    faqs: [
-      { question: "", answer: "" }
-    ]
+    learningProject: [{ title: "", description: "", photoUrl: "" }],
+    freeTrainingSessions: [{ title: "", videoUrl: "" }],
+    faqs: [{ question: "", answer: "" }]
   });
 
-  // Top-level fields
+  // Top-level input handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
-    if (!name.includes(".")) {
-      setCourseData((prev) => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Nested object handler (for schedule, overview, courseIncludes)
+  const handleNestedChange = (section: string, key: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section as keyof typeof prev], [key]: value }
+    }));
+  };
+
+  // Array field handler for top-level arrays (topicsCovered, softwaresTaught, learningProject, freeTrainingSessions, faqs)
+  const handleArrayChange = (
+    section: keyof typeof formData,
+    index: number,
+    key: string,
+    value: string
+  ) => {
+    setFormData((prev) => {
+      const updatedArray = [...(prev[section] as any[])];
+      updatedArray[index] = { ...updatedArray[index], [key]: value };
+      return { ...prev, [section]: updatedArray };
+    });
+  };
+
+  // Handler for nested arrays (expertPanel.advisors, expertPanel.teachers)
+  const handleNestedArrayChange = <
+  P extends keyof typeof formData,
+  S extends keyof typeof formData[P]
+>(
+  parent: P,
+  section: S,
+  index: number,
+  key: string,
+  value: string
+) => {
+  setFormData((prev) => {
+    const updatedSection = [...(prev[parent][section] as any[])];
+    updatedSection[index] = { ...updatedSection[index], [key]: value };
+    return {
+      ...prev,
+      [parent]: { ...prev[parent], [section]: updatedSection }
+    };
+  });
+};
+
+
+  // Add new item to an array field
+  const handleAddArrayItem = (section: keyof typeof formData, newItem: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [section]: [...(prev[section] as any[]), newItem]
+    }));
+  };
+
+  const handleAddNestedArrayItem = <
+  P extends keyof typeof formData,
+  S extends keyof typeof formData[P]
+>(
+  parent: P,
+  section: S,
+  newItem: any
+) => {
+  setFormData((prev) => ({
+    ...prev,
+    [parent]: {
+      ...prev[parent],
+      [section]: [...(prev[parent][section] as any[]), newItem]
     }
-  };
+  }));
+};
 
-  // For nested objects (schedule, overview, courseIncludes)
-  const handleNestedChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
-    const keys = name.split(".");
-    if (keys.length === 2) {
-      const [parent, child] = keys;
-      setCourseData((prev) => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent],
-          [child]: type === "checkbox" ? checked : value,
-        },
-      }));
-    }
-  };
-
-  // For Topics Covered (assuming editing the first topic for simplicity)
-  const handleTopicChange = (index: number, field: string, value: string) => {
-    setCourseData((prev) => {
-      const topics = [...prev.topicsCovered];
-      topics[index] = { ...topics[index], [field]: value };
-      return { ...prev, topicsCovered: topics };
-    });
-  };
-
-  // For Softwares Taught (first item)
-  const handleSoftwareChange = (index: number, field: string, value: string) => {
-    setCourseData((prev) => {
-      const softwares = [...prev.softwaresTaught];
-      softwares[index] = { ...softwares[index], [field]: value };
-      return { ...prev, softwaresTaught: softwares };
-    });
-  };
-
- 
-
-  // For FAQs (first FAQ)
-  const handleFaqChange = (index: number, field: string, value: string) => {
-    setCourseData((prev) => {
-      const faqs = [...prev.faqs];
-      faqs[index] = { ...faqs[index], [field]: value };
-      return { ...prev, faqs };
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Course Created Successfully!");
-    console.log("Course Data:", courseData);
+    // Here you would typically call your API with formData
+    console.log("Submitted Data:", formData);
+    toast.success("Course created successfully!");
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 overflow-y-auto">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 overflow-y-auto p-4">
       <Card className="w-full max-w-5xl shadow-xl mb-10">
         <CardHeader>
           <CardTitle className="text-2xl text-center font-bold">Create a New Course</CardTitle>
@@ -128,35 +139,43 @@ export default function CourseForm() {
             {/* Basic Course Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="title">Course Title</Label>
-                <Input type="text" id="title" name="title" placeholder="Enter course title" required value={courseData.title} onChange={handleChange} />
+                <Label htmlFor="title">Title</Label>
+                <Input type="text" name="title" id="title" placeholder="Enter course title" onChange={handleChange} required />
+              </div>
+              <div>
+                <Label htmlFor="slug">Slug</Label>
+                <Input type="text" name="slug" id="slug" placeholder="Enter course slug" onChange={handleChange} required />
+              </div>
+              <div>
+                <Label htmlFor="categories">Categories</Label>
+                <Input type="text" name="categories" id="categories" placeholder="Enter categories" onChange={handleChange} required />
               </div>
               <div>
                 <Label htmlFor="duration">Duration</Label>
-                <Input type="text" id="duration" name="duration" placeholder="e.g., ৪ মাস" required value={courseData.duration} onChange={handleChange} />
+                <Input type="text" name="duration" id="duration" placeholder="e.g., ৪ মাস" onChange={handleChange} required />
               </div>
               <div>
                 <Label htmlFor="lessons">Lessons</Label>
-                <Input type="number" id="lessons" name="lessons" placeholder="Enter number of lessons" required value={courseData.lessons} onChange={handleChange} />
+                <Input type="text" name="lessons" id="lessons" placeholder="Enter number of lessons" onChange={handleChange} required />
               </div>
               <div>
                 <Label htmlFor="projects">Projects</Label>
-                <Input type="number" id="projects" name="projects" placeholder="Enter number of projects" required value={courseData.projects} onChange={handleChange} />
+                <Input type="text" name="projects" id="projects" placeholder="Enter number of projects" onChange={handleChange} required />
               </div>
               <div>
-                <Label htmlFor="photoUrl">Course Photo URL</Label>
-                <Input type="text" id="photoUrl" name="photoUrl" placeholder="Enter course photo URL" required value={courseData.photoUrl} onChange={handleChange} />
+                <Label htmlFor="photoUrl">Photo URL</Label>
+                <Input type="text" name="photoUrl" id="photoUrl" placeholder="Enter photo URL" onChange={handleChange} required />
               </div>
               <div>
                 <Label htmlFor="courseFee">Course Fee</Label>
-                <Input type="number" id="courseFee" name="courseFee" placeholder="Enter course fee" required value={courseData.courseFee} onChange={handleChange} />
+                <Input type="text" name="courseFee" id="courseFee" placeholder="Enter course fee" onChange={handleChange} required />
               </div>
             </div>
 
             {/* Description */}
             <div>
               <Label htmlFor="description">Description</Label>
-              <Textarea id="description" name="description" placeholder="Write a brief description" required value={courseData.description} onChange={handleChange} />
+              <Textarea name="description" id="description" placeholder="Enter course description" onChange={handleChange} required />
             </div>
 
             {/* Schedule */}
@@ -165,16 +184,11 @@ export default function CourseForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="schedule.startingDate">Starting Date</Label>
-                  <Input type="date" id="schedule.startingDate" name="schedule.startingDate" required value={courseData.schedule.startingDate} onChange={handleNestedChange} />
+                  <Input type="date" name="startingDate" id="schedule.startingDate" onChange={(e) => handleNestedChange("schedule", "startingDate", e.target.value)} required />
                 </div>
                 <div>
-                  <Label htmlFor="schedule.mode">Mode</Label>
-                  <Select onValueChange={(value) =>
-                    setCourseData((prev) => ({
-                      ...prev,
-                      schedule: { ...prev.schedule, mode: value },
-                    }))
-                  }>
+                  <Label>Mode</Label>
+                  <Select onValueChange={(value) => handleNestedChange("schedule", "mode", value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Mode" />
                     </SelectTrigger>
@@ -185,12 +199,12 @@ export default function CourseForm() {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="schedule.days">Days (comma separated)</Label>
-                  <Input type="text" id="schedule.days" name="schedule.days" placeholder="e.g., Saturday, Monday, Wednesday" required value={courseData.schedule.days} onChange={handleNestedChange} />
+                  <Label htmlFor="schedule.days">Days</Label>
+                  <Input type="text" name="days" id="schedule.days" placeholder="e.g., Saturday, Monday, Wednesday" onChange={(e) => handleNestedChange("schedule", "days", e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor="schedule.time">Time</Label>
-                  <Input type="text" id="schedule.time" name="schedule.time" placeholder="e.g., 07:00 PM - 09:00 PM" required value={courseData.schedule.time} onChange={handleNestedChange} />
+                  <Input type="text" name="time" id="schedule.time" placeholder="e.g., 07:00 PM - 09:00 PM" onChange={(e) => handleNestedChange("schedule", "time", e.target.value)} required />
                 </div>
               </div>
             </div>
@@ -200,24 +214,12 @@ export default function CourseForm() {
               <h3 className="font-bold mb-2">Overview</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="overview.totalClasses">Total Classes</Label>
-                  <Input type="number" id="overview.totalClasses" name="overview.totalClasses" placeholder="Enter total classes" required value={courseData.overview.totalClasses} onChange={handleNestedChange} />
+                  <Label htmlFor="overview.overviewDescription">Overview Description</Label>
+                  <Textarea name="overview.overviewDescription" id="overview.overviewDescription" placeholder="Enter overview description" onChange={(e) => handleNestedChange("overview", "overviewDescription", e.target.value)} required />
                 </div>
                 <div>
-                  <Label htmlFor="overview.classDuration">Class Duration</Label>
-                  <Input type="text" id="overview.classDuration" name="overview.classDuration" placeholder="e.g., ২ - ২.৫ ঘন্টা" required value={courseData.overview.classDuration} onChange={handleNestedChange} />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="overview.interactiveSessions" name="overview.interactiveSessions" checked={courseData.overview.interactiveSessions} onChange={handleNestedChange} />
-                  <Label htmlFor="overview.interactiveSessions">Interactive Sessions</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="overview.assignments" name="overview.assignments" checked={courseData.overview.assignments} onChange={handleNestedChange} />
-                  <Label htmlFor="overview.assignments">Assignments</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="overview.digitalLabAccess" name="overview.digitalLabAccess" checked={courseData.overview.digitalLabAccess} onChange={handleNestedChange} />
-                  <Label htmlFor="overview.digitalLabAccess">Digital Lab Access</Label>
+                  <Label htmlFor="overview.videoUrl">Video URL</Label>
+                  <Input type="text" name="overview.videoUrl" id="overview.videoUrl" placeholder="Enter video URL" onChange={(e) => handleNestedChange("overview", "videoUrl", e.target.value)} required />
                 </div>
               </div>
             </div>
@@ -228,15 +230,15 @@ export default function CourseForm() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="courseIncludes.duration">Duration</Label>
-                  <Input type="text" id="courseIncludes.duration" name="courseIncludes.duration" placeholder="e.g., ৪ মাস" required value={courseData.courseIncludes.duration} onChange={handleNestedChange} />
+                  <Input type="text" name="courseIncludes.duration" id="courseIncludes.duration" placeholder="Enter duration" onChange={(e) => handleNestedChange("courseIncludes", "duration", e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor="courseIncludes.weeklyLiveClasses">Weekly Live Classes</Label>
-                  <Input type="number" id="courseIncludes.weeklyLiveClasses" name="courseIncludes.weeklyLiveClasses" placeholder="Enter weekly live classes" required value={courseData.courseIncludes.weeklyLiveClasses} onChange={handleNestedChange} />
+                  <Input type="text" name="courseIncludes.weeklyLiveClasses" id="courseIncludes.weeklyLiveClasses" placeholder="Enter weekly live classes" onChange={(e) => handleNestedChange("courseIncludes", "weeklyLiveClasses", e.target.value)} required />
                 </div>
                 <div>
                   <Label htmlFor="courseIncludes.weeklyClassHours">Weekly Class Hours</Label>
-                  <Input type="number" id="courseIncludes.weeklyClassHours" name="courseIncludes.weeklyClassHours" placeholder="Enter weekly class hours" required value={courseData.courseIncludes.weeklyClassHours} onChange={handleNestedChange} />
+                  <Input type="text" name="courseIncludes.weeklyClassHours" id="courseIncludes.weeklyClassHours" placeholder="Enter weekly class hours" onChange={(e) => handleNestedChange("courseIncludes", "weeklyClassHours", e.target.value)} required />
                 </div>
               </div>
             </div>
@@ -244,61 +246,305 @@ export default function CourseForm() {
             {/* Topics Covered */}
             <div className="border p-4 rounded">
               <h3 className="font-bold mb-2">Topics Covered</h3>
-              {/* For simplicity, only the first topic is handled */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="topicsCovered.0.topicTitle">Topic Title</Label>
-                  <Input type="text" id="topicsCovered.0.topicTitle" name="topicsCovered.0.topicTitle" placeholder="Enter topic title" required value={courseData.topicsCovered[0].topicTitle} onChange={(e) => handleTopicChange(0, "topicTitle", e.target.value)} />
+              {formData.topicsCovered.map((_, index) => (
+                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor={`topicsCovered.${index}.topicTitle`}>Topic Title</Label>
+                    <Input
+                      type="text"
+                      name={`topicsCovered[${index}].topicTitle`}
+                      id={`topicsCovered.${index}.topicTitle`}
+                      placeholder="Enter topic title"
+                      onChange={(e) => handleArrayChange("topicsCovered", index, "topicTitle", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`topicsCovered.${index}.topicDescription`}>Topic Description</Label>
+                    <Textarea
+                      name={`topicsCovered[${index}].topicDescription`}
+                      id={`topicsCovered.${index}.topicDescription`}
+                      placeholder="Enter topic description"
+                      onChange={(e) => handleArrayChange("topicsCovered", index, "topicDescription", e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="topicsCovered.0.topicDescription">Topic Description</Label>
-                  <Textarea id="topicsCovered.0.topicDescription" name="topicsCovered.0.topicDescription" placeholder="Enter topic description" required value={courseData.topicsCovered[0].topicDescription} onChange={(e) => handleTopicChange(0, "topicDescription", e.target.value)} />
-                </div>
-              </div>
+              ))}
+              <Button
+                type="button"
+                onClick={() => handleAddArrayItem("topicsCovered", { topicTitle: "", topicDescription: "" })}
+                className="bg-green-500 hover:bg-green-600"
+              >
+                Add Topic
+              </Button>
             </div>
 
             {/* Softwares Taught */}
             <div className="border p-4 rounded">
               <h3 className="font-bold mb-2">Softwares Taught</h3>
-              {/* For simplicity, only the first software is handled */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  {/* <Label htmlFor="softwaresTaught.0.softwareTitle">Software Title</Label> */}
-                  <Input type="text" id="softwaresTaught.0.softwareTitle" name="softwaresTaught.0.softwareTitle" placeholder="Enter software title" required value={courseData.softwaresTaught[0].softwareTitle} onChange={(e) => handleSoftwareChange(0, "softwareTitle", e.target.value)} />
+              {formData.softwaresTaught.map((_, index) => (
+                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor={`softwaresTaught.${index}.softwareTitle`}>Software Title</Label>
+                    <Input
+                      type="text"
+                      name={`softwaresTaught[${index}].softwareTitle`}
+                      id={`softwaresTaught.${index}.softwareTitle`}
+                      placeholder="Enter software title"
+                      onChange={(e) => handleArrayChange("softwaresTaught", index, "softwareTitle", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`softwaresTaught.${index}.photoUrl`}>Software Photo URL</Label>
+                    <Input
+                      type="text"
+                      name={`softwaresTaught[${index}].photoUrl`}
+                      id={`softwaresTaught.${index}.photoUrl`}
+                      placeholder="Enter software photo URL"
+                      onChange={(e) => handleArrayChange("softwaresTaught", index, "photoUrl", e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="softwaresTaught.0.photoUrl">Software Photo URL</Label>
-                  <Input type="text" id="softwaresTaught.0.photoUrl" name="softwaresTaught.0.photoUrl" placeholder="Enter software photo URL" required value={courseData.softwaresTaught[0].photoUrl} onChange={(e) => handleSoftwareChange(0, "photoUrl", e.target.value)} />
-                </div>
+              ))}
+              <Button
+                type="button"
+                onClick={() => handleAddArrayItem("softwaresTaught", { softwareTitle: "", photoUrl: "" })}
+                className="bg-green-500 hover:bg-green-600"
+              >
+                Add Software
+              </Button>
+            </div>
+
+            {/* Expert Panel */}
+            <div className="border p-4 rounded">
+              <h3 className="font-bold mb-2">Expert Panel</h3>
+              <div className="mb-4">
+                <h4 className="font-semibold">Advisors</h4>
+                {formData.expertPanel.advisors.map((_, index) => (
+                  <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor={`expertPanel.advisors.${index}.name`}>Name</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.advisors[${index}].name`}
+                        id={`expertPanel.advisors.${index}.name`}
+                        placeholder="Enter advisor name"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "advisors", index, "name", e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`expertPanel.advisors.${index}.title`}>Title</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.advisors[${index}].title`}
+                        id={`expertPanel.advisors.${index}.title`}
+                        placeholder="Enter advisor title"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "advisors", index, "title", e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`expertPanel.advisors.${index}.photoUrl`}>Photo URL</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.advisors[${index}].photoUrl`}
+                        id={`expertPanel.advisors.${index}.photoUrl`}
+                        placeholder="Enter advisor photo URL"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "advisors", index, "photoUrl", e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  onClick={() => handleAddNestedArrayItem("expertPanel", "advisors", { name: "", title: "", photoUrl: "" })}
+                  className="bg-green-500 hover:bg-green-600"
+                >
+                  Add Advisor
+                </Button>
+              </div>
+              <div>
+                <h4 className="font-semibold">Teachers</h4>
+                {formData.expertPanel.teachers.map((_, index) => (
+                  <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor={`expertPanel.teachers.${index}.name`}>Name</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.teachers[${index}].name`}
+                        id={`expertPanel.teachers.${index}.name`}
+                        placeholder="Enter teacher name"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "teachers", index, "name", e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`expertPanel.teachers.${index}.role`}>Role</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.teachers[${index}].role`}
+                        id={`expertPanel.teachers.${index}.role`}
+                        placeholder="Enter teacher role"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "teachers", index, "role", e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`expertPanel.teachers.${index}.photoUrl`}>Photo URL</Label>
+                      <Input
+                        type="text"
+                        name={`expertPanel.teachers[${index}].photoUrl`}
+                        id={`expertPanel.teachers.${index}.photoUrl`}
+                        placeholder="Enter teacher photo URL"
+                        onChange={(e) => handleNestedArrayChange("expertPanel", "teachers", index, "photoUrl", e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  onClick={() => handleAddNestedArrayItem("expertPanel", "teachers", { name: "", role: "", photoUrl: "" })}
+                  className="bg-green-500 hover:bg-green-600"
+                >
+                  Add Teacher
+                </Button>
               </div>
             </div>
 
-          
+            {/* Learning Projects */}
+            <div className="border p-4 rounded">
+              <h3 className="font-bold mb-2">Learning Projects</h3>
+              {formData.learningProject.map((_, index) => (
+                <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <Label htmlFor={`learningProject.${index}.title`}>Title</Label>
+                    <Input
+                      type="text"
+                      name={`learningProject[${index}].title`}
+                      id={`learningProject.${index}.title`}
+                      placeholder="Enter project title"
+                      onChange={(e) => handleArrayChange("learningProject", index, "title", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`learningProject.${index}.description`}>Description</Label>
+                    <Textarea
+                      name={`learningProject[${index}].description`}
+                      id={`learningProject.${index}.description`}
+                      placeholder="Enter project description"
+                      onChange={(e) => handleArrayChange("learningProject", index, "description", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`learningProject.${index}.photoUrl`}>Photo URL</Label>
+                    <Input
+                      type="text"
+                      name={`learningProject[${index}].photoUrl`}
+                      id={`learningProject.${index}.photoUrl`}
+                      placeholder="Enter project photo URL"
+                      onChange={(e) => handleArrayChange("learningProject", index, "photoUrl", e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+              ))}
+              <Button
+                type="button"
+                onClick={() => handleAddArrayItem("learningProject", { title: "", description: "", photoUrl: "" })}
+                className="bg-green-500 hover:bg-green-600"
+              >
+                Add Learning Project
+              </Button>
+            </div>
+
+            {/* Free Training Sessions */}
+            <div className="border p-4 rounded">
+              <h3 className="font-bold mb-2">Free Training Sessions</h3>
+              {formData.freeTrainingSessions.map((_, index) => (
+                <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor={`freeTrainingSessions.${index}.title`}>Title</Label>
+                    <Input
+                      type="text"
+                      name={`freeTrainingSessions[${index}].title`}
+                      id={`freeTrainingSessions.${index}.title`}
+                      placeholder="Enter session title"
+                      onChange={(e) => handleArrayChange("freeTrainingSessions", index, "title", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`freeTrainingSessions.${index}.videoUrl`}>Video URL</Label>
+                    <Input
+                      type="text"
+                      name={`freeTrainingSessions[${index}].videoUrl`}
+                      id={`freeTrainingSessions.${index}.videoUrl`}
+                      placeholder="Enter video URL"
+                      onChange={(e) => handleArrayChange("freeTrainingSessions", index, "videoUrl", e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+              ))}
+              <Button
+                type="button"
+                onClick={() => handleAddArrayItem("freeTrainingSessions", { title: "", videoUrl: "" })}
+                className="bg-green-500 hover:bg-green-600"
+              >
+                Add Free Training Session
+              </Button>
+            </div>
 
             {/* FAQs */}
             <div className="border p-4 rounded">
               <h3 className="font-bold mb-2">FAQs</h3>
-              {/* For simplicity, only the first FAQ is handled */}
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <Label htmlFor="faqs.0.question mb-2">FAQ Question</Label>
-                  <Input type="text" id="faqs.0.question mt-2" name="faqs.0.question" placeholder="Enter FAQ question" required value={courseData.faqs[0].question} onChange={(e) => handleFaqChange(0, "question", e.target.value)} />
+              {formData.faqs.map((_, index) => (
+                <div key={index} className="grid grid-cols-1 gap-4">
+                  <div>
+                    <Label htmlFor={`faqs.${index}.question`}>Question</Label>
+                    <Input
+                      type="text"
+                      name={`faqs[${index}].question`}
+                      id={`faqs.${index}.question`}
+                      placeholder="Enter FAQ question"
+                      onChange={(e) => handleArrayChange("faqs", index, "question", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor={`faqs.${index}.answer`}>Answer</Label>
+                    <Textarea
+                      name={`faqs[${index}].answer`}
+                      id={`faqs.${index}.answer`}
+                      placeholder="Enter FAQ answer"
+                      onChange={(e) => handleArrayChange("faqs", index, "answer", e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-                <div  className="">
-                  <Label htmlFor="faqs.0.answer mb-2 ">FAQ Answer</Label>
-
-                  <Textarea id="faqs.0.answer mt-2" name="faqs.0.answer" placeholder="Enter FAQ answer" required value={courseData.faqs[0].answer} onChange={(e) => handleFaqChange(0, "answer", e.target.value)} />
-                </div>
-              </div>
+              ))}
+              <Button
+                type="button"
+                onClick={() => handleAddArrayItem("faqs", { question: "", answer: "" })}
+                className="bg-green-500 hover:bg-green-600"
+              >
+                Add FAQ
+              </Button>
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-              Create Course
-            </Button>
+            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">Create Course</Button>
           </form>
         </CardContent>
       </Card>
+      <Toaster />
     </div>
   );
 }

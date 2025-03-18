@@ -9,7 +9,8 @@ const baseApi = createApi({
   }),
   tagTypes: [
     "User",
-    "Event"
+    "Event",
+    "Course"
   ],
   endpoints: () => ({}),
 });

@@ -484,8 +484,83 @@
           "answer": ""
         }
       ]
+    }, 
+
+
+    {
+      "title": "",
+      "slug": "",
+      "categories": "",
+      "duration": "",
+      "lessons": "",
+      "photoUrl": "",
+      "projects": "",
+      "description": "",
+      "schedule": {
+        "startingDate": "",
+        "mode": "",
+        "days": "",
+        "time": ""
+      },
+      "overview": {
+        "overviewDescription": "",
+        "videoUrl": ""
+      },
+      "courseIncludes": {
+        "duration": "",
+        "weeklyLiveClasses": "",
+        "weeklyClassHours": ""
+      },
+      "topicsCovered": [
+        {
+          "topicTitle": "",
+          "topicDescription": ""
+        }
+      ],
+      "softwaresTaught": [
+        {
+          "softwareTitle": "",
+          "photoUrl": ""
+        }
+      ],
+      "expertPanel": {
+        "advisors": [
+          {
+            "name": "",
+            "title": "",
+            "photoUrl": ""
+          }
+        ],
+        "teachers": [
+          {
+            "name": "",
+            "role": "",
+            "photoUrl": ""
+          }
+        ]
+      },
+      "learningProject": [
+        {
+          "title": "",
+          "description": "",
+          "photoUrl": ""
+        }
+      ],
+      "freeTrainingSessions": [
+        {
+          "title": "",
+          "videoUrl": ""
+        }
+      ],
+      "courseFee": "",
+      "faqs": [
+        {
+          "question": "",
+          "answer": ""
+        }
+      ]
     }
-  
-  
-  
+    
+
+ 
 ]

@@ -4,23 +4,31 @@ import baseApi from "../baseApi";
 export const UserApi = baseApi.injectEndpoints({
 
 endpoints: (builder)=>({
-
-    getAllUsers: builder.query({
+    getAllCourse: builder.query({
         query: () => ({
-          url: `/`,
+          url: `/courses`,
           method: "GET",
-        //   headers: {
-        //     Authorization: `${Cookies.get("accessToken")}`,
-        //   },
+       
         }),
         providesTags: ["User"],
       }),
+
+      createCourse: builder.mutation({
+        query: (courseData) => ({
+          url: "/courses/create-course",
+          method: "POST",
+          body: courseData,
+        }),
+        invalidatesTags: ["Course"],
+      }),
+
 })
 
 
 })
 export const {
-    useGetAllUsersQuery,
+    useGetAllCourseQuery,
+    useCreateCourseMutation
   
   } = UserApi;
 
