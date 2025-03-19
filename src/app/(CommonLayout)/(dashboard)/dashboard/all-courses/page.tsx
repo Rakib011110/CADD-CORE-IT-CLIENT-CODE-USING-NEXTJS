@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/UI/textarea";
 import { toast, Toaster } from "sonner";
 import { TCourse } from "@/lib/types/TCourses";
+import { useCreateCourseMutation } from "@/redux/api/courseApi";
 
 export default function CourseForm() {
   const [formData, setFormData] = useState<TCourse>({
@@ -46,13 +47,13 @@ export default function CourseForm() {
     faqs: [{ question: "", answer: "" }]
   });
 
-  // Top-level input handler
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Nested object handler (for schedule, overview, courseIncludes)
+ 
   const handleNestedChange = (section: string, key: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -60,7 +61,7 @@ export default function CourseForm() {
     }));
   };
 
-  // Array field handler for top-level arrays (topicsCovered, softwaresTaught, learningProject, freeTrainingSessions, faqs)
+  
   const handleArrayChange = (
     section: keyof typeof formData,
     index: number,
@@ -74,7 +75,7 @@ export default function CourseForm() {
     });
   };
 
-  // Handler for nested arrays (expertPanel.advisors, expertPanel.teachers)
+  
   const handleNestedArrayChange = <
   P extends keyof typeof formData,
   S extends keyof typeof formData[P]
@@ -121,13 +122,57 @@ export default function CourseForm() {
   }));
 };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically call your API with formData
-    console.log("Submitted Data:", formData);
-    toast.success("Course created successfully!");
-  };
 
+const [createCourse, { isLoading, error }] = useCreateCourseMutation();
+
+
+
+
+const handleSubmit = async (e:any) => {
+  e.preventDefault();
+  try {
+    await createCourse(formData).unwrap();
+    alert("Course created successfully!");
+    setFormData({
+      title: "",
+      slug: "",
+      categories: "",
+      duration: "",
+      lessons: "",
+      photoUrl: "",
+      projects: "",
+      description: "",
+      courseFee: "",
+      schedule: {
+        startingDate: "",
+        mode: "",
+        days: "",
+        time: ""
+      },
+      overview: {
+        overviewDescription: "",
+        videoUrl: ""
+      },
+      courseIncludes: {
+        duration: "",
+        weeklyLiveClasses: "",
+        weeklyClassHours: ""
+      },
+      topicsCovered: [{ topicTitle: "", topicDescription: "" }],
+      softwaresTaught: [{ softwareTitle: "", photoUrl: "" }],
+      expertPanel: {
+        advisors: [{ name: "", title: "", photoUrl: "" }],
+        teachers: [{ name: "", role: "", photoUrl: "" }]
+      },
+      learningProject: [{ title: "", description: "", photoUrl: "" }],
+      freeTrainingSessions: [{ title: "", videoUrl: "" }],
+      faqs: [{ question: "", answer: "" }]
+    });
+  } catch (err) {
+    console.error("Failed to create course:", err);
+    alert("Error creating course");
+  }
+};
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 overflow-y-auto p-4">
       <Card className="w-full max-w-5xl shadow-xl mb-10">

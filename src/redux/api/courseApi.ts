@@ -1,3 +1,4 @@
+import { use } from "react";
 import baseApi from "../baseApi";
 
 
@@ -10,7 +11,7 @@ endpoints: (builder)=>({
           method: "GET",
        
         }),
-        providesTags: ["User"],
+        providesTags: ["Course"],
       }),
 
       createCourse: builder.mutation({
@@ -22,13 +23,21 @@ endpoints: (builder)=>({
         invalidatesTags: ["Course"],
       }),
 
+      deleteCourse: builder.mutation({
+        query: (id) => ({
+          url: `/courses/${id}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["Course"],
+      }),
+
 })
 
 
 })
 export const {
     useGetAllCourseQuery,
-    useCreateCourseMutation
-  
+    useCreateCourseMutation,
+    useDeleteCourseMutation
   } = UserApi;
 
