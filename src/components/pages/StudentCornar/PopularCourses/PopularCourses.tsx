@@ -1,9 +1,19 @@
+"use client"
 import { Card } from "@/components/UI/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/UI/carousel";
-import { courses } from "@/lib/courses";
+import {  TCourse } from "@/lib/courses";
+import { useGetAllCourseQuery } from "@/redux/api/courseApi";
 import { Book, Clock, Settings } from "lucide-react";
+import Link from "next/link";
 
-export default function PopularCourses() {
+export default function PopularCourses() { 
+
+const { data: courses, isLoading } = useGetAllCourseQuery({});
+
+if (isLoading) {
+    return <div className="text-center py-10 text-lg font-semibold">Loading...</div>;
+}
+
   return (
     <div className="max-w-6xl mx-auto">
      <div className="max-w-6xl mx-auto py-10">
@@ -16,17 +26,17 @@ export default function PopularCourses() {
 
       <Carousel opts={{ align: "center" }} className="w-full max-w-6xl mx-auto">
         <CarouselContent>
-          {courses.map((course) => ( 
+          {courses?.data?.map((course: TCourse) => ( 
 
             
             <CarouselItem
-              key={course.id}
+              key={course._id}
               className="md:basis-1/2 lg:basis-1/3 p-4"
             >
                <Card className="relative h-[320px] rounded-lg overflow-hidden shadow-lg">
                
                <img
-                 src={course.image}
+                 src={course.photoUrl}
                  alt={course.title}
                  className="absolute inset-0 w-full h-full object-cover"
                />
@@ -58,9 +68,12 @@ export default function PopularCourses() {
            
            
            
-                 <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                <Link href={`/courses/${course.slug}`}>
+                <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
                    বিস্তারিত
                  </button>
+                
+                </Link>
                </div>
              </Card>
             </CarouselItem>

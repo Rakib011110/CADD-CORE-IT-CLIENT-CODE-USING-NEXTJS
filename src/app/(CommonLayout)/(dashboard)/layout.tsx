@@ -12,8 +12,8 @@ const navigationSections = [
           color: "",
         },
         {
-          label: "All Courses",
-          href: "/dashboard/all-courses",
+          label: "Create New Course",
+          href: "/dashboard/create-course",
           color: "",
         },
         {
@@ -21,9 +21,15 @@ const navigationSections = [
           href: "/dashboard/add-seminar-time",
           color: "",
         },
+        
         {
           label: "Student Feedback",
           href: "/dashboard/student-feedback",
+          color: "",
+        },
+        {
+          label: "Manage Events and Engagements",
+          href: "/dashboard/manage-events-engagements",
           color: "",
         },
         {
@@ -41,11 +47,7 @@ const navigationSections = [
           href: "/dashboard/manage-clients-partners",
           color: "",
         },
-        {
-          label: "Manage Events and Engagements",
-          href: "/dashboard/manage-events-engagements",
-          color: "",
-        },
+       
       ]
       
   },

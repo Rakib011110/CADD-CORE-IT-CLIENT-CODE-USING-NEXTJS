@@ -5,12 +5,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useDeleteCourseMutation, useGetAllCourseQuery } from "@/redux/api/courseApi";
 import { useDeleteEventMutation } from "@/redux/api/eventApi";
 import { Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { toast } from "sonner";
 
 export default function ManageCourses() {
   const { data: courses, isLoading } = useGetAllCourseQuery({});
   const [deleteEvent] = useDeleteCourseMutation();
 
+  // console.log(courses?.data?.map((course: any) => course.photoUrl));
 
 
   const handleDelete = async (id: string) => {
@@ -46,13 +48,13 @@ export default function ManageCourses() {
             {courses?.data?.map((course: any) => (
               <TableRow key={course._id} className="border-t">
                 <TableCell className="p-4">
-                  {/* <Image
-                    src={course?.photoUrl || "/placeholder.png"}
+                  <Image
+                    src={course?.photoUrl || "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"}
                     alt={course.title}
                     width={50}
                     height={50}
                     className="rounded-md object-cover"
-                  /> */}
+                  />
                 </TableCell>
                 <TableCell>{course.title}</TableCell>
                 <TableCell>{course.courseFee}</TableCell>

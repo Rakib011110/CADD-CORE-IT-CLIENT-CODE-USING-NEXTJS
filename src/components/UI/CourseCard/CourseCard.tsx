@@ -1,15 +1,15 @@
-import { Course } from '@/lib/courses';
 import React from 'react';
 import { Card } from '../card';
 import { Book, Clock, Settings } from 'lucide-react';
 import Link from 'next/link';
+import { TCourse } from '@/lib/courses';
 
-const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, details ,image ,id}) => {
+const CourseCard: React.FC<TCourse> = ({ title, duration, lessons, projects,  photoUrl ,_id , slug}) => {
   return (
     <Card className="relative h-[320px] rounded-lg overflow-hidden shadow-lg">
                
     <img
-      src={image}
+      src={photoUrl}
       alt={title}
       className="absolute inset-0 w-full h-full object-cover"
     />
@@ -41,7 +41,7 @@ const CourseCard: React.FC<Course> = ({ title, duration, lessons, projects, deta
 
 
 
-     <Link href={`/courses/${id}`}>
+     <Link href={`/courses/${slug}`}>
      
      <button className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
         বিস্তারিত
