@@ -1,4 +1,8 @@
-export default function BatchSchedule() { 
+import { TCourse } from "@/lib/courses";
+
+export default function BatchSchedule({course}: {course: TCourse}) { 
+ 
+ console.log("courseSec", course)
   const seminars = [
     {
       topic: "RCC Building Structural Analysis Design & Detailing Mastercourse",
@@ -50,16 +54,16 @@ export default function BatchSchedule() {
                   } hover:bg-red-50 transition-colors`}
                 >
                   <td className="py-2 px-4 border-b border-red-200">
-                    {seminar.topic}
+                    {course?.schedule.startingDate}
                   </td>
                   <td className="py-2 px-4 border-b border-red-200">
-                    {seminar.place}
+                    {course?.schedule?.mode}
                   </td>
                   <td className="py-2 px-4 border-b border-red-200">
                     {seminar.date}
                   </td>
                   <td className="py-2 px-4 border-b border-red-200">
-                    {seminar.time}
+                    {course?.schedule?.time}
                   </td>
                   <td className="py-2 px-4 border-b border-red-200">
                     <button className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition">

@@ -1,5 +1,6 @@
 import { use } from "react";
 import baseApi from "../baseApi";
+import { get } from "http";
 
 
 export const UserApi = baseApi.injectEndpoints({
@@ -13,6 +14,15 @@ endpoints: (builder)=>({
         }),
         providesTags: ["Course"],
       }),
+
+
+  getCourseBySlug: builder.query({
+    query: (slug) => ({
+      url: `/courses/${slug}`, // ✅ Fetch by slug, not ID
+      method: "GET",
+    }),
+    providesTags: ["Course"],
+  }),
 
       createCourse: builder.mutation({
         query: (courseData) => ({
@@ -38,6 +48,7 @@ endpoints: (builder)=>({
 export const {
     useGetAllCourseQuery,
     useCreateCourseMutation,
-    useDeleteCourseMutation
+    useDeleteCourseMutation, 
+    useGetCourseBySlugQuery
   } = UserApi;
 
