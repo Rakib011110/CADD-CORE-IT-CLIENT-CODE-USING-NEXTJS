@@ -29,11 +29,8 @@ export default function CourseDetails() {
 </div>
 
 <div className="">
-
-  <SoftwareTaught/>
+<SoftwareTaught/>
 </div>
-
-
     </div>
   );
 }

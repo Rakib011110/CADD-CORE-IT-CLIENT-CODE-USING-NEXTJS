@@ -1,153 +1,60 @@
-export default function Advisors() {
-    const teamMembers = [
-      {
-        category: "Honorable Advisors",
-        members: [
-          {
-            name: "Hashnat Badsha",
-            title: "PhD in Civil (Environmental) Engineering, San Luis Obispo, California, United States",
+"use client";
+
+import { useGetAllTeamQuery } from "@/redux/api/teamApi";
+import { teamCategories } from "@/lib/types/TTeam";
+import LoadingSpinner from "@/components/UI/LoadingSpinner/LoadingSpinner";
+
+
+export default function TeamMembers() {
+  const { data: Teams, error, isLoading } = useGetAllTeamQuery({});
+
+
+if (isLoading) return <div className="">
+
+<LoadingSpinner/>
+</div>;
+
+
+if (error) return <div className="text-center py-10 text-red-500">Error loading team members.</div>;
+
+
+  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">Error loading team members.</div>;
+
+
+  const categorizedTeams = teamCategories.map((category) => ({
+    category,
+    members: Teams?.data?.filter((member: any) => member.category === category) || [],
+  }));
+
+  return (
+   <div className="conta" >
+     <div className=" max-w-7xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 text-center">Our Team Members <br /> 
+      
+        </h2>
+<div className="text-center">
+
+
+</div>
+      {categorizedTeams.map(({ category, members }) =>
+        members.length > 0 && (
+          <div key={category} className="mb-8">
            
-            photoUrl:
-              "https://caddcore.net/wp-content/uploads/2023/04/Badsha-Sir.png",
-          },
-          {
-            name: "K.M. Ariful Islam",
-            title: "Sr. Lead Structural Engineer, Bangladesh",
-            photoUrl:
-              "https://caddcore.net/wp-content/uploads/2023/04/K.M.Ariful-Islam.png",
-          },
-          {
-            name: "Hamidul Bari PEng",
-            title:
-              "Licensed Structural Engineer, DMINB/CE/(C:SD), MIEB, MACI, Researcher, and Reviewer",
-            location: "Dhaka, Bangladesh",
-            photoUrl:
-              "https://caddcore.net/wp-content/uploads/2023/04/Hamidur-Bari-Peng.png",
-          },
-          {
-            name: "Md. Bazlur Rahman",
-            title: "Structural Engineer, Seismic Assessment and Retrofitting",
-            location: "Dhaka, Bangladesh",
-            photoUrl:
-              "https://caddcore.net/wp-content/uploads/2023/04/Md.-bazlur-Rahman.png",
-          },
-        ],
-      },
-      {
-        category: "Management",
-        members: [
-          {
-            name: "Hachnayen Ahmed",
-            title: "Founder & CEO",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2023/04/Hachnayen-Ahmed.png",
-          },
-          {
-            name: "Engr. Md. Easin",
-            title: "Head of Business Development",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-28-at-10.34.14-AM-Md-Easin.jpeg",
-          },
-          {
-            name: "Farjana Akter",
-            title: "Accountants & HR",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/inbound3137485866319682761-Farjana-Akter.jpg",
-          },
-        ],
-      },
-      {
-        category: "Civil Engineering Team",
-        members: [
-          {
-            name: "Hachnayen Ahmed",
-            title: "Structural Engineer",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2023/04/Hachnayen-Ahmed.png",
-          },
-          {
-            name: "Mahmodul Hoque",
-            title: "CAD ENGINEER (CIVIL)",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/IMG_20240901_123608-Mahmodul-Hoque-Misho.jpg",
-          },
-          {
-            name: "Md. Sazzadul Islam",
-            title: "Structural Engineer",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/1-Md.-Sazzadul-Islam.jpg",
-          },
-          {
-            name: "Habib Basar",
-            title: "BIM Modeler",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/09/WhatsApp-Image-2024-03-23-at-3.35.07-PM-Habib-Basar.jpeg",
-          },
-       
-         
-        ],
-      },
-      {
-        category: "Mechanical Engineering Team",
-        members: [
-          {
-            name: "MD SHARIFUL ISLAM",
-            title: "Mechanical Design Engr. & Trainer",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2024/10/MD-SHARIFUL-ISLAM-Md-Shariful-Islam.jpg",
-          },
-        ],
-      },
-      {
-        category: "Electrical Engineering Team",
-        members: [ 
-        //   {
-        //     name: "Tanzim Faisal",
-        //     title: "Electrical Design Engineer",
-        //     photoUrl: "https://via.placeholder.com/300",
-        //   },
-        //   {
-        //     name: "Abdullah Al Noman",
-        //     title: "CAD Engineer (Electrical)",
-        //     photoUrl: "https://via.placeholder.com/300",
-        //   },
-        ],
-      },
-      {
-        category: "Creative & IT Team",
-        members: [
-        //   {
-        //     name: "Nazim Rashed",
-        //     title: "Graphic Designer",
-        //     photoUrl: "https://via.placeholder.com/300",
-        //   },
-        ],
-      },
-      {
-        category: "Customer Service Team",
-        members: [
-        //   {
-        //     name: "Mosammat Maksuda Akter",
-        //     title: "Sr. Executive (Marketing)",
-        //     photoUrl: "https://via.placeholder.com/300",
-        //   },
-          {
-            name: "Wahida Alam",
-            title: "Customer Service",
-            photoUrl: "https://caddcore.net/wp-content/uploads/2023/03/Wahida-maam-1.png",
-          },
-        ],
-      },
-    ];
-  
-    return (
-        <section className="bg-[#e8f8f8] py-10 px-5">
-        <div className="max-w-6xl mx-auto space-y-12">
-          {teamMembers.map((group, groupIndex) => (
-            <div key={groupIndex} className="relative">
-              {/* Category Label - Positioned a little higher using negative top margin */}
-              <div className="absolute -top-6 left-0 bg-red-500 text-white px-3 py-1 rounded-bl-lg text-3xl z-10">
-                <h1>{group.category}</h1>
+
+
+            <div className=" w-96 -top-6 left-0 bg-red-500 text-white px-3 py-1 rounded-br-lg text-3xl z-10">
+                <h1>{category}</h1>
               </div>
-  
-              {/* Team Member Cards */}
-              <div className="pt-8">
+
+
+
+            
+            <div className="pt-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {group.members.map((member, memberIndex) => (
+                  {members?.map((member: any) => (
                     <div
-                      key={memberIndex}
+                      key={member._id}
                       className="relative group overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105"
                     >
                       <img
@@ -166,10 +73,16 @@ export default function Advisors() {
                   ))}
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  }
-  
+          </div>
+        )
+      )}
+      <div>
+   
+
+      </div>
+    </div> 
+   </div>
+
+
+  );
+}

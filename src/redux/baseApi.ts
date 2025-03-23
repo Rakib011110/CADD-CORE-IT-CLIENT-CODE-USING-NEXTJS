@@ -11,7 +11,8 @@ const baseApi = createApi({
     "User",
     "Event",
     "Course", 
-    "Seminar"
+    "Seminar", 
+    "Team"
   ],
   endpoints: () => ({}),
 });
