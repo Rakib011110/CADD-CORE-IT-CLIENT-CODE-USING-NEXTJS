@@ -61,14 +61,22 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Live Event Button */}
-      <div className="hidden md:block">
+      {/* Desktop Live Event Button */} 
+      <div className="hidden md:block ">
+      <div className="flex items-center space-x-6 text-white font-semibold z-50">
+      <div>
+      <Link href="/dashboard/manage-courses">ড্যাশবোর্ড</Link>
+
+        </div>
         <Link
           href="https://docs.google.com/forms/d/e/1FAIpQLScZysZu-d44Md-KbsIPXOX-wuoobxWbcBaXN04ITkgWYNR6Fw/viewform?pli=1"
           className="bg-white text-red-500 font-bold px-4 py-2 rounded-lg shadow-md hover:bg-gray-100"
         >
+         
+         
           লাইভ ইভেন্ট
         </Link>
+      </div>
       </div>
 
       {/* Mobile Hamburger Button */}

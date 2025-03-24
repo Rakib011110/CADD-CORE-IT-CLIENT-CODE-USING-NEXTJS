@@ -6,24 +6,8 @@ import Link from "next/link";
 
 export default function DetailsBannar({ course }: { course: TCourse }) {
    
-  console.log("courseData", course)
   
-  const bannerData = [
-        {
-          id: 1,
-          subTitle: "ইঞ্জিনিয়ারিং এক্সপার্টদের সাথে ক্যারিয়ার গড়ুন",
-          title:
-            "আরসিসি বিল্ডিং স্ট্রাকচারাল অ্যানালাইসিস, ডিজাইন অ্যান্ড ডিটেইলিং মাস্টারকোর্স",
-          description:
-            "৬ মাসব্যাপী এই কোর্সে আপনি ETABS & SAFE ব্যবহার করে বিল্ডিং স্ট্রাকচারের বিশ্লেষণ ও ডিজাইন শিখবেন। এখানে BNBC 2020 অনুযায়ী Lateral Loads, Wind Loads, সাইসমিক লোড সহ সকল গুরুত্বপূর্ণ বাস্তব প্রজেক্ট কিভাবে প্রয়োগ করা যায় তা হাতে-কলমে দেখানো হবে।",
-          duration: "৬ মাস",
-          lessons: "৫০ টি লেসন",
-          projects: "১৫ টি প্রজেক্ট",
-          bgImage:
-            "https://caddcore.net/wp-content/uploads/2023/03/Bridge-Analysis-and-Design-2.png",
-        },
-      
-      ]; 
+
 
 
   return (
@@ -41,7 +25,7 @@ export default function DetailsBannar({ course }: { course: TCourse }) {
             className="relative bg-cover bg-center bg-no-repeat py-12 mb-6"
             style={{ backgroundImage: `url(https://caddcore.net/wp-content/uploads/2023/03/Bridge-Analysis-and-Design-2.png` }}
           >
-            {/* Dark Overlay */}
+       
             <div className="absolute inset-0 bg-black/40"></div>
 
             {/* Banner Content */}

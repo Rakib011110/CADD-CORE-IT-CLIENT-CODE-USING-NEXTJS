@@ -18,7 +18,7 @@ export default async function EventsandEngagements() {
 // const {data: events}= useGetAllEventsQuery({})
 
 
-const res = await fetch("http://localhost:5000/api/events");
+const res = await fetch("https://caddcore-web-server-code.vercel.app/api/events");
 const events = await res.json();
 
   return (
