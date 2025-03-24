@@ -31,6 +31,8 @@ export type TCourseIncludes = {
 };
 
 export type TTopic = {
+  id(id: any): void;
+  _id: string | null;
   topicTitle: string;
   topicDescription: string;
 };

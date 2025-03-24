@@ -1,3 +1,4 @@
+import { TCourse } from "@/lib/courses";
 
 
 type software = {
@@ -6,7 +7,7 @@ type software = {
   image: string; 
 };
 
-export default function SoftwareTaught () {
+export default function SoftwareTaught ({ course }: { course: TCourse }) {
 
 
 

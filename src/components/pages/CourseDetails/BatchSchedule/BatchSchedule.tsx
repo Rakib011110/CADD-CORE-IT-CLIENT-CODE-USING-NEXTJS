@@ -2,7 +2,7 @@ import { TCourse } from "@/lib/courses";
 
 export default function BatchSchedule({course}: {course: TCourse}) { 
  
- console.log("courseSec", course)
+//  console.log("courseSec", course)
   const seminars = [
     {
       topic: "RCC Building Structural Analysis Design & Detailing Mastercourse",
