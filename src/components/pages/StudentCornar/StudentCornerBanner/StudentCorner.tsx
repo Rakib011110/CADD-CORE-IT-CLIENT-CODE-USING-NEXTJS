@@ -1,6 +1,27 @@
 import { PhoneCall } from "lucide-react";
 
-export default function StudentCornerBannar() {
+
+export const metadata = {
+  title: "Student Corner - CADD CORE",
+  description: "Verify certificates, explore popular courses, and access student support at CADD CORE Student Corner.",
+  keywords: ["Student Corner", "Certificate Verification", "Popular Courses", "Support Forms", "CADD CORE"],
+  openGraph: {
+    title: "Student Corner - CADD CORE",
+    description: "Everything a student needs: certificate verification, popular courses, and full support at CADD CORE Student Corner.",
+    type: "website",
+  },
+ 
+  authors: [{ name: "CADD CORE" }],
+  creator: "CADD CORE",
+  publisher: "CADD CORE",
+};
+
+
+export default function StudentCornerBannar() { 
+
+
+
+  
   return (
     <section className="bg-gray-100 py-16 px-6">
       <div className="max-w-4xl mx-auto text-center">

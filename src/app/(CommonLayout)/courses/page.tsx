@@ -1,68 +1,49 @@
-"use client";
-import { useState } from "react";
-import CoursesBanner from "@/components/pages/@courses/CourseBanner";
-import CourseCard from "@/components/UI/CourseCard/CourseCard";
-import { Category } from "@/lib/courses";
-import { useGetAllCourseQuery } from "@/redux/api/courseApi";
-import LoadingSpinner from "@/components/UI/LoadingSpinner/LoadingSpinner";
+import AllCourses from "@/components/pages/Courses/Courses";
 
-type CategoryWithAll = Category | "All";
 
-export default function Courses() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryWithAll>("All");
 
-  // Our array of categories (including 'All')
-  const categories: CategoryWithAll[] = ["All", "Civil", "Architectural", "Mechanical", "Electrical", "Bim"];
+export const metadata = {
+  title: "Courses - CADD CORE",
+  description: "Explore a wide range of professional courses including Civil, Mechanical, Electrical, Architectural, and BIM at CADD CORE.",
+  keywords: [
+    "CADD CORE Courses",
+    "Civil Courses",
+    "Mechanical Courses",
+    "Electrical Courses",
+    "Architectural Courses",
+    "BIM Courses",
+    "Professional Training",
+    "Technical Education"
+  ],
+  openGraph: {
+    title: "Courses - CADD CORE",
+    description: "Advance your career with industry-focused courses in Civil, Mechanical, Electrical, Architectural, and BIM disciplines at CADD CORE.",
+    // url: "https://yourdomain.com/courses", 
+    type: "website",
+    // images: [
+    //   {
+    //     // url: "https://yourdomain.com/images/courses-banner.jpg", 
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "Courses at CADD CORE",
+    //   },
+    // ],
+  },
+ 
+  authors: [{ name: "CADD CORE" }],
+  creator: "CADD CORE",
+  publisher: "CADD CORE",
+};
 
-  const { data: coursesResponse, error, isLoading } = useGetAllCourseQuery({});
 
-  // Always work with an array of courses
-  const coursesArray = coursesResponse?.data || [];
 
-  // Filter logic using the correct property name: 'categories'
-  const filteredCourses =
-    selectedCategory === "All"
-      ? coursesArray
-      : coursesArray.filter((course: any) => course.categories === selectedCategory);
+export default function Course() { 
+
+
 
   return (
     <div>
-      <CoursesBanner />
-
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-3 mb-8 items-center justify-center text-center">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-md text-sm font-medium transition-colors
-                  ${selectedCategory === category
-                    ? "bg-red-600 text-white"
-                    : "bg-white text-gray-600 border border-gray-200 hover:border-blue-200 hover:bg-blue-50"
-                  }`}
-              >
-                {category === "All" ? "All Courses" : category}
-              </button>
-            ))}
-          </div>
-
-          {/* Course Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isLoading ? (
-             <div className="container mx-auto flex  justify-evenly items-center ">
-              <LoadingSpinner/>
-             
-             </div>
-            ) : (
-              filteredCourses.map((course: any) => (
-                <CourseCard key={course._id} {...course} />
-              ))
-            )}
-          </div>
-        </div>
-      </div>
+     <AllCourses/>
     </div>
   );
 }
