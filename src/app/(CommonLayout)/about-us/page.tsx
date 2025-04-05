@@ -10,7 +10,7 @@ import OurLocations from "@/components/pages/About/OurLocations/OurLocations";
 
 
 export const metadata = {
-  title: "About - CADD CORE",
+  title: "About Us - CADD CORE",
   description: "Learn more about CADD CORE, our mission, values, and team members.",
 };
 
@@ -18,10 +18,9 @@ export const metadata = {
 export default function AboutUsPage() {
 
 
-  
-  return (
+return (
     <>
-      {/* SEO Meta Tags */}
+ 
       <Head>
         <title>About Us - CADD Core</title>
         <meta name="description" content="Learn more about CADD Core, our team, values, and global locations." />

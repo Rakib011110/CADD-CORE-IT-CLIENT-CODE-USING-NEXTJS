@@ -28,7 +28,7 @@ if (error) return <div className="text-center py-10 text-red-500">Error loading 
   }));
 
   return (
-   <div className="conta" >
+   <div className="max-w-6xl mx-auto" >
      <div className=" max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-6 text-center">Our Team Members <br /> 
       
