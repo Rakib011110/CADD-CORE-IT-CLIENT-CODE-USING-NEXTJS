@@ -7,10 +7,8 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner/LoadingSpinner";
 
 export default function TeamMembers() {
   const { data: Teams, error, isLoading } = useGetAllTeamQuery({});
-
-
+  
 if (isLoading) return <div className="">
-
 <LoadingSpinner/>
 </div>;
 

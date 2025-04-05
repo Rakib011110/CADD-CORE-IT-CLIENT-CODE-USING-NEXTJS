@@ -1,56 +1,70 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
-// import { Player } from "@lottiefiles/react-lottie-player";
-
-
 import dynamic from "next/dynamic";
+
 import { useUserLogin } from "@/hooks/auth.hook";
 import LoadingSpinner from "@/components/UI/LoadingSpinner/LoadingSpinner";
 import CaddForm from "@/components/resubaleform/CaddForm";
 import CaddInput from "@/components/resubaleform/CaddInput";
 import { Button } from "@/components/UI/button";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
-const Player = dynamic(
-  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+// Ensure AnimationPlayer is client-only
+const AnimationPlayer = dynamic(
+  () => import("@/components/UI/AnimationPlayer/AnimationPlayer"),
   { ssr: false }
 );
 
-const LoginPage = () => {
-  const searchParams = useSearchParams();
+function useHasMounted() {
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  return hasMounted;
+}
+
+export function LoginClient() {
   const router = useRouter();
-  const redirect = searchParams?.get("redirect");
+  const searchParams = useSearchParams();
+  const [redirectTo, setRedirectTo] = useState("/");
+  const hasMounted = useHasMounted();
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
+
+  useEffect(() => {
+    const param = searchParams?.get("redirect");
+    if (param) {
+      setRedirectTo(param);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(redirectTo);
+    }
+  }, [isSuccess, redirectTo, router]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     handleUserLogin(data);
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.push(redirect || "/");
-    }
-  }, [isSuccess, redirect, router]);
-
+  // Render nothing until after mount to avoid SSR mismatches
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
-    <>
+    <section>
       {isPending && <LoadingSpinner />}
+
       <div className="h-screen w-full bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 flex items-center justify-center">
         <div className="flex flex-col lg:flex-row w-[90%] max-w-[900px] bg-white rounded-xl shadow-lg overflow-hidden">
-          {/* Left Side: Animation */}
           <div className="hidden lg:flex w-full lg:w-1/2 bg-blue-100 items-center justify-center p-6">
-            <Player
-              autoplay
-              loop
-              className="w-[80%] h-auto max-w-[400px]"
-              src="https://assets6.lottiefiles.com/packages/lf20_nc1bp7st.json"
-            />
+            <AnimationPlayer />
           </div>
 
           {/* Right Side: Login Form */}
@@ -59,28 +73,25 @@ const LoginPage = () => {
               Welcome to Cadd core
             </h3>
 
-            {/* Credentials Buttons */}
-           
-
             <p className="text-gray-600 text-center mb-6 text-sm sm:text-base">
               Sign in to continue
             </p>
 
-            {/* Login Form */}
-            <CaddForm
-              // resolver={zodResolver(loginValidationSchema)}
-              onSubmit={onSubmit}>
+
+
+
+            <CaddForm onSubmit={onSubmit}>
               <div className="mb-6">
-                <CaddInput 
-                label="Email"
+                <CaddInput
+                  label="Email"
                   name="email"
                   placeholder="Enter your email"
                   type="email"
                 />
               </div>
               <div className="mb-6">
-                <CaddInput  
-                label="Password"
+                <CaddInput
+                  label="Password"
                   name="password"
                   placeholder="Enter your password"
                   type="password"
@@ -89,17 +100,20 @@ const LoginPage = () => {
               <Button
                 className="w-full py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-shadow shadow-md hover:shadow-lg"
                 size="lg"
-                type="submit">
+                type="submit"
+              >
                 Login
-              </Button>
+              </Button> 
+
             </CaddForm>
 
-            {/* Register and Forgot Password Links */}
+
             <div className="text-center mt-6 text-sm">
               <span className="text-gray-600">Do not have an account?</span>{" "}
               <Link
                 className="text-blue-600 font-semibold hover:underline"
-                href="/register-customer">
+                href="/register-customer"
+              >
                 Register
               </Link>
             </div>
@@ -107,15 +121,14 @@ const LoginPage = () => {
               <span className="text-gray-600">Forgot Password?</span>{" "}
               <Link
                 className="text-blue-600 font-semibold hover:underline"
-                href="/forgot-pass">
+                href="/forgot-pass"
+              >
                 Reset
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
-};
-
-export default LoginPage;
+}

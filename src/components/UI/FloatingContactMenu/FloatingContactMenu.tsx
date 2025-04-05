@@ -1,7 +1,10 @@
 "use client";
 
+import { MessageCircle, MessageSquareDotIcon } from "lucide-react";
 import { useState } from "react";
 import { FaFacebookMessenger, FaWhatsapp, FaPhone, FaMapMarkerAlt, FaSms, FaTimes } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion"; 
+import { MagicCard } from "@/components/magicui/magic-card";
 
 export default function FloatingContactMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,38 +12,56 @@ export default function FloatingContactMenu() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {/* Menu */}
-      {isOpen && (
-        <div className="bg-white rounded-xl shadow-lg p-4 mb-4 flex flex-col gap-4">
-          <a href="https://m.me/yourpage" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-500">
-            <FaFacebookMessenger size={24} />
-            <span>Messenger</span>
-          </a>
-          <a href="https://wa.me/yourwhatsappphonenumber" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-green-500">
-            <FaWhatsapp size={24} />
-            <span>Whatsapp</span>
-          </a>
-          <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-blue-400">
-            <FaPhone size={24} />
-            <span>Call Us</span>
-          </a>
-          <a href="https://goo.gl/maps/yourlocationlink" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-500">
-            <FaMapMarkerAlt size={24} />
-            <span>Visit Us</span>
-          </a>
-          <a href="sms:+1234567890" className="flex items-center gap-2 hover:text-purple-500">
-            <FaSms size={24} />
-            <span>SMS</span>
-          </a>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-2xl shadow-2xl p-4 mb-4 flex flex-col gap-4 w-48"
+          >
+            {[
+              { href: "https://m.me/caddcorebd", icon: <FaFacebookMessenger size={24} />, label: "Messenger", color: "hover:text-blue-500" },
+              { href: "https://wa.me/+8801611223631", icon: <FaWhatsapp size={24} />, label: "Whatsapp", color: "hover:text-green-500" },
+              { href: "tel:+8809613202060", icon: <FaPhone size={24} />, label: "Call Us", color: "hover:text-blue-400" },
+              { href: "https://www.google.com/maps/place/CADD+CORE+Training+Institute/@23.760747,90.389486,639m/data=!3m1!1e3!4m6!3m5!1s0x3755b954b526d24b:0x5f1116b39789def9!8m2!3d23.7605933!4d90.3892575!16s%2Fg%2F11h4c9wf8k?hl=en&entry=ttu&g_ep=EgoyMDI1MDQwMi4xIKXMDSoASAFQAw%3D%3D", icon: <FaMapMarkerAlt size={24} />, label: "Visit Us", color: "hover:text-red-500" },
+              { href: "sms:+8801611223637", icon: <FaSms size={24} />, label: "SMS", color: "hover:text-purple-500" },
+            ].map((item, idx) => (
+             <MagicCard     key={idx}>
+ <motion.a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 ${item.color}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.icon}
+                <span className="text-sm font-medium">{item.label}</span>
+              </motion.a>
 
+                
+             </MagicCard>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+   
       {/* Toggle Button */}
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-purple-600 hover:bg-purple-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg focus:outline-none"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="bg-red-500 hover:bg-purple-700 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-2xl focus:outline-none"
       >
-        {isOpen ? <FaTimes size={24} /> : "+"}
-      </button>
+        {isOpen ? <FaTimes size={28} /> :   
+            
+        <MessageSquareDotIcon size={36} className="" />
+            }
+      </motion.button> 
+
+    
     </div>
   );
 }

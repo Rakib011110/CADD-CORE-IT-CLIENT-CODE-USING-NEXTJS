@@ -6,6 +6,7 @@ import OurServices from "@/components/Home/OurServices/OurServices";
 import SeminarSchedule from "@/components/Home/SeminarSchedule/SeminarSchedule";
 import StateSection from "@/components/Home/StatsSection/StatsSection";
 import Banner from "@/components/pages/Banner/Banner";
+import FloatingContactMenu from "@/components/UI/FloatingContactMenu/FloatingContactMenu";
 
 export default function homeLayoutPage() {
  
@@ -34,7 +35,9 @@ export default function homeLayoutPage() {
 
       <div>
         <ClientReviews/>
-      </div>
+      </div> 
+      <FloatingContactMenu />
+
     </div>
   );
 }
