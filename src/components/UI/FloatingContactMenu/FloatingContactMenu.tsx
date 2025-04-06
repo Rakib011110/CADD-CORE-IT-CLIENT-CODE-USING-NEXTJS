@@ -10,14 +10,12 @@ export default function FloatingContactMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
- 
-
-  useEffect(() => {
+   useEffect(() => {
     if (isOpen) {
       setShowHint(true);
       const timer = setTimeout(() => {
         setShowHint(false);
-      }, 5000); // ⏱ 5 seconds
+      }, 5000); 
   
       return () => clearTimeout(timer);
     }
@@ -27,7 +25,7 @@ export default function FloatingContactMenu() {
   
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {/* Menu */} 
+  
      
       {showHint && (
     <motion.div
@@ -82,7 +80,7 @@ export default function FloatingContactMenu() {
  
 </AnimatePresence>
 
-      {/* Toggle Button */}
+     
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
