@@ -30,7 +30,7 @@ function useHasMounted() {
 export function LoginClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [redirectTo, setRedirectTo] = useState("/");
+  const [redirectTo, setRedirectTo] = useState("/dashboard/manage-courses");
   const hasMounted = useHasMounted();
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
