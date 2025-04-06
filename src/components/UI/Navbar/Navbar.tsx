@@ -59,8 +59,8 @@ export default function Navbar() {
               <Link href="/team" className="block px-4 py-2 hover:bg-gray-200" onClick={() => setDropdownOpen(false)}>
                 আমাদের টিম
               </Link>
-              <Link href="/contact" className="block px-4 py-2 hover:bg-gray-200" onClick={() => setDropdownOpen(false)}>
-                যোগাযোগ করুন
+              <Link href="/job" className="block px-4 py-2 hover:bg-gray-200" onClick={() => setDropdownOpen(false)}>
+              Career
               </Link>
             </div>
           )}
@@ -98,7 +98,7 @@ export default function Navbar() {
         <div className="absolute top-full left-0 w-full bg-red-500 text-white flex flex-col space-y-4 py-4 md:hidden">
           <Link href="/" className="px-6" onClick={() => setMobileMenuOpen(false)}>
             হোম
-          </Link>
+          </Link> 
           <Link href="/courses" className="px-6" onClick={() => setMobileMenuOpen(false)}>
             কোর্স সমূহ
           </Link>
@@ -122,14 +122,14 @@ export default function Navbar() {
                   আমাদের টিম
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/job"
                   className="block px-4 py-2 hover:bg-gray-200"
                   onClick={() => {
                     setDropdownOpen(false);
                     setMobileMenuOpen(false);
                   }}
                 >
-                  যোগাযোগ করুন
+              Career
                 </Link>
               </div>
             )}

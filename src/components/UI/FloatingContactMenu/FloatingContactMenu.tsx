@@ -10,12 +10,13 @@ export default function FloatingContactMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
-   useEffect(() => {
+ 
+  useEffect(() => {
     if (isOpen) {
       setShowHint(true);
       const timer = setTimeout(() => {
         setShowHint(false);
-      }, 5000); 
+      }, 3000); 
   
       return () => clearTimeout(timer);
     }
@@ -27,7 +28,7 @@ export default function FloatingContactMenu() {
     <div className="fixed bottom-6 right-6 z-50">
   
      
-      {showHint && (
+  {showHint && (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}

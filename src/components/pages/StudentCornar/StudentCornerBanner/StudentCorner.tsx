@@ -41,21 +41,22 @@ export default function StudentCornerBannar() {
         <div className="mt-8 flex flex-col md:flex-row justify-center gap-4">
           {/* Button 1 */}
           <a
-            href="#"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdMEJoWiucoRsaWMFO-ewUcPNwRfKkWKOH_MQnDb2VdrKxGWQ/viewform"
             className="flex items-center gap-2 bg-red-500 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-red-600 transition"
           >
-            <PhoneCall size={20} />
+            <PhoneCall  size={20} />
             সি.ই.ও এর সাথে কথা বলুন
           </a>
 
           {/* Button 2 */}
           <a
-            href="#"
+            href="tel:09613202060"
             className="flex items-center gap-2 bg-red-500 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-lg hover:bg-red-600 transition"
           >
             <PhoneCall size={20} />
             কাস্টমার সার্ভিসে যোগাযোগ করুন
-          </a>
+          </a> 
+         
         </div>
       </div>
     </section>
