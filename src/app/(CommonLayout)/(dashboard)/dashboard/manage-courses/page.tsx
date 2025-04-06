@@ -1,18 +1,110 @@
 "use client";
 
+import UpdateCourse from "@/components/pages/Courses/UpdateCourses";
 import { Button } from "@/components/UI/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/UI/table";
-import { useDeleteCourseMutation, useGetAllCourseQuery } from "@/redux/api/courseApi";
-import { useDeleteEventMutation } from "@/redux/api/eventApi";
+import { TCourse } from "@/lib/types/TCourses";
+import { useDeleteCourseMutation, useGetAllCourseQuery, useUpdateCourseMutation } from "@/redux/api/courseApi";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export default function ManageCourses() {
   const { data: courses, isLoading } = useGetAllCourseQuery({});
   const [deleteEvent] = useDeleteCourseMutation();
+  const [updateCourses] =  useUpdateCourseMutation();
+console.log(updateCourses)
+const [selectedCourses, setSelectedCourses] = useState(null);
 
-  // console.log(courses?.data?.map((course: any) => course.photoUrl));
+const [formData, setFormData] = useState<TCourse>({
+    title: "",
+    slug: "",
+    categories: "",
+    duration: "",
+    lessons: "",
+    photoUrl: "",
+    projects: "",
+    description: "",
+    courseFee: "",
+    schedule: {
+      startingDate: "",
+      mode: "",
+      days: "",
+      time: ""
+    },
+    overview: {
+      overviewDescription: "",
+      videoUrl: ""
+    },
+    courseIncludes: {
+      duration: "",
+      weeklyLiveClasses: "",
+      weeklyClassHours: ""
+    },
+    topicsCovered: [{ topicTitle: "", topicDescription: "" }],
+    softwaresTaught: [{ softwareTitle: "", photoUrl: "" }],
+    expertPanel: {
+      advisors: [{ name: "", title: "", photoUrl: "" }],
+      teachers: [{ name: "", role: "", photoUrl: "" }]
+    },
+    learningProject: [{ title: "", description: "", photoUrl: "" }],
+    freeTrainingSessions: [{ title: "", videoUrl: "" }],
+    faqs: [{ question: "", answer: "" }]
+  });
+
+const handleEdit = (course: any) => {
+    setSelectedCourses(course._id);
+    setFormData({
+      title: course.title,
+      slug: course.slug,
+      categories: course.categories,
+      duration: course.duration,
+      lessons: course.lessons,
+      photoUrl: course.photoUrl,
+      projects: course.projects,
+      description: course.description,
+      courseFee: course.courseFee,
+      schedule: {
+        startingDate: course.schedule.startingDate,
+        mode: course.schedule.mode,
+        days: course.schedule.days,
+        time: course.schedule.time
+      },
+      overview: {
+        overviewDescription: course.overview.overviewDescription,
+        videoUrl: course.overview.videoUrl
+      },
+      courseIncludes: {
+        duration: course.courseIncludes.duration,
+        weeklyLiveClasses: course.courseIncludes.weeklyLiveClasses,
+        weeklyClassHours: course.courseIncludes.weeklyClassHours
+      },
+      topicsCovered: [{ topicTitle: "", topicDescription: "" }],
+      softwaresTaught: [{ softwareTitle: "", photoUrl: "" }],
+      expertPanel: {
+        advisors: [{ name: "", title: "", photoUrl: "" }],
+        teachers: [{ name: "", role: "", photoUrl: "" }]
+      },
+      learningProject: [{ title: "", description: "", photoUrl: "" }],
+      freeTrainingSessions: [{ title: "", videoUrl: "" }],
+      faqs: [{ question: "", answer: "" }]
+    });
+  };
+  const handleUpdate = async () => {
+
+    try {
+      await updateCourses({ id: selectedCourses, courseData: formData }).unwrap();
+      toast.success("Course updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update course!");
+    }
+    setSelectedCourses(null);
+
+
+  }
+
+
 
 
   const handleDelete = async (id: string) => {
@@ -60,7 +152,7 @@ export default function ManageCourses() {
                 <TableCell>{course.courseFee}</TableCell>
                 <TableCell>{course.categories}</TableCell>
                 <TableCell className="text-center flex gap-2 justify-center">
-                  <Button variant="ghost" className="text-blue-500 hover:bg-blue-100">
+                  <Button  onClick={()=>handleEdit(course)} variant="ghost" className="text-blue-500 hover:bg-blue-100">
                     <Pencil size={18} />
                   </Button>
                   <Button    onClick={() => handleDelete(course._id || course.id)} variant="ghost" className="text-red-500 hover:bg-red-100">
@@ -71,7 +163,14 @@ export default function ManageCourses() {
             ))}
           </TableBody>
         </Table>
-      </div>
+      </div>  
+
+
+      {selectedCourses && (
+            <UpdateCourse  formData={formData} setFormData={setFormData}  setSelectedCourses={setSelectedCourses} handleUpdate={handleUpdate} />
+            )}  
+           
+
     </div>
   );
 }

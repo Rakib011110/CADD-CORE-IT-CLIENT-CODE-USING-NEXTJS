@@ -18,7 +18,7 @@ endpoints: (builder)=>({
 
   getCourseBySlug: builder.query({
     query: (slug) => ({
-      url: `/courses/${slug}`, // ✅ Fetch by slug, not ID
+      url: `/courses/${slug}`, 
       method: "GET",
     }),
     providesTags: ["Course"],
@@ -41,6 +41,14 @@ endpoints: (builder)=>({
         invalidatesTags: ["Course"],
       }),
 
+      updateCourse: builder.mutation({
+        query: ({ id, courseData }) => ({
+          url: `/courses/${id}`,
+          method: "PUT",
+          body: courseData,
+        }),
+        invalidatesTags: ["Course"],
+      }),
 })
 
 
@@ -49,6 +57,7 @@ export const {
     useGetAllCourseQuery,
     useCreateCourseMutation,
     useDeleteCourseMutation, 
-    useGetCourseBySlugQuery
+    useGetCourseBySlugQuery,
+    useUpdateCourseMutation,
   } = UserApi;
 

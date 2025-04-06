@@ -1,17 +1,48 @@
 "use client";
 
-import { MessageCircle, MessageSquareDotIcon } from "lucide-react";
-import { useState } from "react";
+import {  MessageSquareDotIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { FaFacebookMessenger, FaWhatsapp, FaPhone, FaMapMarkerAlt, FaSms, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion"; 
 import { MagicCard } from "@/components/magicui/magic-card";
 
 export default function FloatingContactMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
+ 
+
+  useEffect(() => {
+    if (isOpen) {
+      setShowHint(true);
+      const timer = setTimeout(() => {
+        setShowHint(false);
+      }, 5000); // ⏱ 5 seconds
+  
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+  
+
+  
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {/* Menu */}
+      {/* Menu */} 
+     
+      {showHint && (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.5 }}
+      className="bg-black text-white text-sm px-4 py-2 rounded-lg shadow-md mb-3 w-fit mx-auto"
+    >
+      💬 Send us a message!
+    </motion.div>
+  )}
+
+
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -47,7 +78,10 @@ export default function FloatingContactMenu() {
           </motion.div>
         )}
       </AnimatePresence>
-   
+      <AnimatePresence>
+ 
+</AnimatePresence>
+
       {/* Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
@@ -57,7 +91,12 @@ export default function FloatingContactMenu() {
       >
         {isOpen ? <FaTimes size={28} /> :   
             
-        <MessageSquareDotIcon size={36} className="" />
+<div>
+
+   <MessageSquareDotIcon size={36} className="" />
+</div>
+
+       
             }
       </motion.button> 
 
